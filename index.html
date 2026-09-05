@@ -666,7 +666,7 @@ document.getElementById('runAuditBtn').addEventListener('click', function(){
   renderResults(results);
 });
 
-function fmtMoney(v){ return isFinite(v) ? '$' + v.toFixed(2) : '—'; }
+function fmtMoney(v){ return (v === null || !isFinite(v)) ? '—' : '$' + v.toFixed(2); }
 function fmtPct(v){ return (v === null || !isFinite(v)) ? '—' : v.toFixed(0) + '%'; }
 
 function renderResults(results){
