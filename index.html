@@ -249,6 +249,28 @@
   .stamp.show{opacity:1;}
   @media (prefers-reduced-motion: reduce){.stamp{transition:none;}}
   .output-wrap{position:relative;}
+  .sample-overlay{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-10deg);
+    display:none;
+    border:3px solid var(--stamp-red);
+    color:var(--stamp-red);
+    font-family:'Roboto Slab',serif;
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:8px 18px;
+    border-radius:6px;
+    background:rgba(239,230,211,0.9);
+    text-align:center;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  .sample-overlay.show{display:block;}
+  @media(max-width:480px){.sample-overlay{font-size:0.7rem;padding:6px 12px;white-space:normal;width:80%;}}
   .letter{
     background:var(--paper);
     color:#2a2620;
@@ -485,7 +507,7 @@
   </section>
 
   <!-- MODULE 2: REBUTTAL GENERATOR -->
-  <section class="panel">
+  <section class="panel" id="rebuttal">
     <h2>02. Claim Rebuttal Generator</h2>
     <p class="desc">Turn an Amazon reimbursement denial into a structured appeal, ready to paste into your Seller Central case log.</p>
 
@@ -552,6 +574,7 @@
     <div class="output-wrap" style="margin-top:20px;">
       <div class="stamp" id="stamp">Rebuttal drafted</div>
       <div class="letter empty" id="letterOut">Fill in the case details and draft a rebuttal to see it here.</div>
+      <div class="sample-overlay" id="sampleOverlay">Sample — not for submission</div>
       <button class="btn-ghost" id="copyBtn" style="margin-top:12px;" disabled>Copy to clipboard</button>
     </div>
     <p class="note">This is a starting draft, not legal advice. Swap in your actual report screenshots and figures, and double-check current Amazon FBA reimbursement policy before submitting.</p>
@@ -575,6 +598,13 @@
 </footer>
 
 <script>
+/* ---------- ACCESS / UNLOCK STATE ---------- */
+let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
+if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
+  isUnlocked = true;
+  localStorage.setItem('fbaleaksUnlocked', 'true');
+}
+
 /* ---------- MODULE 1: TRIAGE ---------- */
 let parsedRows = [];
 let parsedHeaders = [];
@@ -840,11 +870,20 @@ document.getElementById('genBtn').addEventListener('click', () => {
   const out = document.getElementById('letterOut');
   const stamp = document.getElementById('stamp');
   const copyBtn = document.getElementById('copyBtn');
+  const sampleOverlay = document.getElementById('sampleOverlay');
 
   const text = generateLetter();
   out.textContent = text;
   out.classList.remove('empty');
   copyBtn.disabled = false;
+
+  if(isUnlocked){
+    sampleOverlay.classList.remove('show');
+    copyBtn.textContent = "Copy to clipboard";
+  } else {
+    sampleOverlay.classList.add('show');
+    copyBtn.textContent = "Unlock clean copy — $97";
+  }
 
   stamp.classList.remove('show');
   void stamp.offsetWidth;
@@ -852,8 +891,14 @@ document.getElementById('genBtn').addEventListener('click', () => {
 });
 
 document.getElementById('copyBtn').addEventListener('click', async () => {
-  const text = document.getElementById('letterOut').textContent;
   const btn = document.getElementById('copyBtn');
+
+  if(!isUnlocked){
+    window.open('https://buy.stripe.com/8x28wOdKf0up6jqeaGe3e00', '_blank', 'noopener');
+    return;
+  }
+
+  const text = document.getElementById('letterOut').textContent;
   try{
     await navigator.clipboard.writeText(text);
     btn.textContent = "Copied";
