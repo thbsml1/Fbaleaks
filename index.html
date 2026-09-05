@@ -333,6 +333,22 @@
     margin-top:20px;
   }
 
+  .sample-label{
+    text-align:center;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--kraft-dim);
+    margin:18px 0 0;
+  }
+  .sample-caption{
+    text-align:center;
+    font-size:0.72rem;
+    color:var(--paper-dim);
+    margin:10px 0 0;
+    font-style:italic;
+  }
+
   footer{
     text-align:center;
     font-size:0.72rem;
@@ -356,6 +372,25 @@
   <section class="panel hero-panel">
     <h2>Find out which SKUs are quietly losing you money</h2>
     <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">Upload your inventory, get a Keep/Reprice/Kill call on every SKU, and turn a denied Amazon claim into a real rebuttal — in minutes, right in your browser.</p>
+
+    <p class="sample-label">Example output</p>
+    <div class="summary-row">
+      <div class="summary-stat keep"><div class="num">1</div><div class="lbl">Keep</div></div>
+      <div class="summary-stat kill"><div class="num">2</div><div class="lbl">Kill</div></div>
+    </div>
+    <div class="results-wrap">
+      <table>
+        <thead>
+          <tr><th>SKU</th><th>Profit</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>SKU-4471</td><td>$8.99</td><td><span class="chip keep">Keep</span></td></tr>
+          <tr><td>SKU-2210</td><td>-$2.56</td><td><span class="chip kill">Kill</span></td></tr>
+          <tr><td>SKU-3087</td><td>-$4.21</td><td><span class="chip kill">Kill</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sample-caption">Sample data — upload your own CSV below to see this for your inventory.</p>
 
     <div class="how-it-works">
       <div class="step"><span class="n">1</span><span>Upload your inventory CSV</span></div>
