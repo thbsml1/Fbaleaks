@@ -19,7 +19,7 @@ src="https://www.facebook.com/tr?id=1048040104711797&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $97 one-time, no subscription.">
+<meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $29.99 one-time, no subscription.">
 <title>fbaleaks — Margin Audit & Rebuttal Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -380,6 +380,48 @@ color:var(--paper-dim);
 margin:10px 0 0;
 font-style:italic;
 }
+.calc-panel{border-color:rgba(199,164,103,0.35);}
+.calc-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+.calc-row .field{flex:1;min-width:180px;}
+.calc-row label{margin:0 0 6px;}
+#calcBtn{white-space:nowrap;}
+.calc-result{
+display:none;
+margin-top:18px;
+padding:18px;
+background:var(--navy);
+border:1px dashed rgba(199,164,103,0.4);
+border-radius:4px;
+text-align:center;
+}
+.calc-result .amount{
+font-family:'Roboto Slab',serif;
+font-weight:700;
+font-size:1.7rem;
+color:var(--kraft);
+}
+.calc-result .amount-lbl{
+font-size:0.68rem;
+letter-spacing:0.08em;
+text-transform:uppercase;
+color:var(--paper-dim);
+margin-top:4px;
+}
+.calc-result .pitch{
+font-size:0.82rem;
+color:var(--paper-dim);
+margin-top:14px;
+padding-top:14px;
+border-top:1px dashed rgba(199,164,103,0.25);
+line-height:1.5;
+}
+.calc-result .pitch a{color:var(--kraft);font-weight:600;}
+.calc-note{
+font-size:0.7rem;
+color:var(--paper-dim);
+margin-top:10px;
+font-style:italic;
+}
 footer{
 text-align:center;
 font-size:0.72rem;
@@ -396,6 +438,24 @@ padding:20px;
 <div class="live-pill">v1 &middot; Live</div>
 </header>
 <main>
+<!-- FREE CALCULATOR -->
+<section class="panel calc-panel">
+<h2>Free: what is aged inventory actually costing you?</h2>
+<p class="desc">No upload, no signup — just one number. Amazon's aged-inventory surcharge quietly eats into margin on stock that's been sitting 6+ months, and most sellers have never seen the real total.</p>
+<div class="calc-row">
+<div class="field">
+<label for="agedUnits">Units currently aged 6+ months</label>
+<input type="number" id="agedUnits" min="0" placeholder="e.g. 60">
+</div>
+<button class="btn-primary" id="calcBtn">See my estimate</button>
+</div>
+<div class="calc-result" id="calcResult">
+<div class="amount" id="calcAmount">$0–$0</div>
+<div class="amount-lbl">Estimated aged-inventory cost, per year</div>
+<div class="pitch">That's a rough, honest range — actual fees depend on size tier and exact age. Want the real number for every SKU you own, plus which ones to kill before they cost you more? <a href="#access">See the full audit below &darr;</a></div>
+</div>
+<p class="calc-note">Estimate only, based on Amazon's published aged-inventory surcharge ranges. Not tied to your account — runs entirely in your browser.</p>
+</section>
 <!-- HERO / OFFER -->
 <section class="panel hero-panel">
 <h2>Find out which SKUs are quietly losing you money</h2>
@@ -425,7 +485,7 @@ padding:20px;
 </div>
 <div class="trust-bar">
 <div class="item">🔒 Runs in your browser — your file is never uploaded to a server</div>
-<div class="item">💳 $97 one-time — vs. $1,000–$5,000 for a typical FBA mentorship</div>
+<div class="item">💳 $29.99 one-time — vs. $1,000–$5,000 for a typical FBA mentorship</div>
 <div class="item">↩️ Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund</div>
 </div>
 <a href="#access" class="btn-access hero-cta">See pricing &darr;</a>
@@ -564,8 +624,8 @@ padding:20px;
 <section class="panel price-card" id="access">
 <h2 style="text-align:center;">03. Instant Access</h2>
 <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. One-time access to the full audit and recovery stack.</p>
-<div class="price-tag">$97 <span class="unit">one-time</span></div>
-<p class="price-note" style="margin-bottom:4px;">Most FBA mentorship programs run $1,000–$5,000. This is $97, once.</p>
+<div class="price-tag">$29.99 <span class="unit">one-time</span></div>
+<p class="price-note" style="margin-bottom:4px;">Most FBA mentorship programs run $1,000–$5,000. This is $29.99, once.</p>
 <p class="price-note">Secure checkout, powered by Stripe. Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund.</p>
 <a href="https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04" class="btn-access" target="_blank" rel="noopener">Secure your access</a>
 </section>
@@ -580,7 +640,26 @@ let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
 if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
 isUnlocked = true;
 localStorage.setItem('fbaleaksUnlocked', 'true');
+if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
+fbq('track', 'Purchase', {value: 29.99, currency: 'USD'});
+localStorage.setItem('fbaleaksPurchaseTracked', 'true');
 }
+}
+/* ---------- FREE CALCULATOR ---------- */
+document.getElementById('calcBtn').addEventListener('click', function(){
+const units = parseFloat(document.getElementById('agedUnits').value);
+if(!units || units <= 0){
+document.getElementById('agedUnits').focus();
+return;
+}
+const low = Math.round(units * 10);
+const high = Math.round(units * 18);
+document.getElementById('calcAmount').textContent = '$' + low.toLocaleString() + '–$' + high.toLocaleString();
+document.getElementById('calcResult').style.display = 'block';
+});
+document.getElementById('agedUnits').addEventListener('keydown', function(e){
+if(e.key === 'Enter'){ document.getElementById('calcBtn').click(); }
+});
 /* ---------- MODULE 1: TRIAGE ---------- */
 let parsedRows = [];
 let parsedHeaders = [];
@@ -821,7 +900,7 @@ sampleOverlay.classList.remove('show');
 copyBtn.textContent = "Copy to clipboard";
 } else {
 sampleOverlay.classList.add('show');
-copyBtn.textContent = "Unlock clean copy — $97";
+copyBtn.textContent = "Unlock clean copy — $29.99";
 }
 stamp.classList.remove('show');
 void stamp.offsetWidth;
@@ -863,7 +942,7 @@ A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in Janua
 </details>
 <details style="margin-bottom:10px; background:#111f30; padding:14px 18px; border-radius:8px;">
 <summary style="cursor:pointer; font-weight:600;">Is it really a one-time fee?</summary>
-<p style="margin-top:10px; color:#9aa5b1;">Yes — $97 once. No subscription, no recurring charge.</p>
+<p style="margin-top:10px; color:#9aa5b1;">Yes — $29.99 once. No subscription, no recurring charge.</p>
 </details>
 </section>
 <footer style="text-align:center; padding:24px 20px; color:#6b7684; font-size:13px; max-width:700px; margin:0 auto;">
@@ -878,7 +957,7 @@ fbaleaks.com is an independent tool and is not affiliated with, authorized, main
 "operatingSystem": "Web",
 "offers": {
 "@type": "Offer",
-"price": "97",
+"price": "29.99",
 "priceCurrency": "USD"
 },
 "description": "Amazon FBA margin audit and reimbursement claim tool. Upload inventory, get Keep/Reprice/Kill guidance."
