@@ -10,18 +10,13 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1048040104711797');
-fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1048040104711797&ev=PageView&noscript=1"
-/></noscript>
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $29.99 one-time, no subscription.">
-<title>fbaleaks — Margin Audit & Rebuttal Engine</title>
-<link rel="canonical" href="https://fbaleaks.com/">
+<title>fbaleaks Pro</title>
 <meta name="theme-color" content="#1B2130">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fbaleaks.com/">
@@ -451,9 +446,11 @@ padding:20px;
 .compare-col h3{font-family:'Roboto Slab',serif;font-size:0.95rem;color:var(--kraft);margin:0 0 8px;}
 .compare-col ul{margin:0;padding-left:18px;font-size:0.82rem;line-height:1.6;color:var(--paper-dim);}
 .noscript-msg{background:var(--stamp-red);color:#fff;text-align:center;padding:12px 16px;font-size:0.9rem;margin:0;}
+body>section,.calc-panel,.hero-panel,#access{display:none!important;}
 </style>
 </head>
 <body>
+<div class="paid-banner">You're in. Everything is unlocked. Bookmark this page: it is your private link.</div>
 <noscript><p class="noscript-msg">This tool runs in your browser and needs JavaScript turned on.</p></noscript>
 <header>
 <p class="kicker">fbaleaks &middot; margin audit &amp; recovery toolkit</p>
@@ -695,21 +692,7 @@ const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.c
 if(a){ track('InitiateCheckout', {value: 29.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
-let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
-if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
-isUnlocked = true;
-localStorage.setItem('fbaleaksUnlocked', 'true');
-document.addEventListener('DOMContentLoaded', function(){
-const b = document.createElement('div');
-b.className = 'paid-banner';
-b.innerHTML = 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
-document.body.insertBefore(b, document.body.firstChild);
-});
-if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
-fbq('track', 'Purchase', {value: 29.99, currency: 'USD'});
-localStorage.setItem('fbaleaksPurchaseTracked', 'true');
-}
-}
+const isUnlocked = true;
 /* ---------- FREE CALCULATOR ---------- */
 document.getElementById('calcBtn').addEventListener('click', function(){
 const units = parseFloat(document.getElementById('agedUnits').value);
