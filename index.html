@@ -428,6 +428,13 @@ font-size:0.72rem;
 color:var(--paper-dim);
 padding:20px;
 }
+.loss-line{margin-top:14px;font-size:1rem;}
+.loss-line strong{color:var(--stamp-red);}
+.row-locked td{filter:blur(5px);user-select:none;pointer-events:none;}
+.lock-cta{margin-top:14px;padding:16px;border:1px solid var(--kraft-dim);border-radius:4px;background:rgba(199,164,103,0.12);text-align:center;}
+.lock-cta p{margin:0 0 12px;font-size:0.95rem;}
+.lock-cta .btn-access{display:inline-block;}
+.paid-banner{background:var(--stamp-green);color:#fff;text-align:center;padding:12px 16px;font-size:0.95rem;}
 </style>
 </head>
 <body>
@@ -544,6 +551,7 @@ padding:20px;
 <div class="summary-stat kill"><div class="num" id="statKill">0</div><div class="lbl">Kill</div></div>
 <div class="summary-stat"><div class="num" id="statIncomplete">0</div><div class="lbl">Needs cost data</div></div>
 </div>
+<p class="loss-line" id="lossLine"></p>
 <div class="results-wrap">
 <table id="resultsTable">
 <thead>
@@ -551,6 +559,10 @@ padding:20px;
 </thead>
 <tbody id="resultsBody"></tbody>
 </table>
+</div>
+<div class="lock-cta" id="lockCta" style="display:none;">
+<p id="lockMsg"></p>
+<a class="btn-access" id="lockBtn" href="https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04" target="_blank" rel="noopener">Unlock everything — $29.99</a>
 </div>
 <button class="btn-ghost" id="downloadBtn" style="margin-top:14px;">Download results CSV</button>
 </div>
@@ -623,7 +635,7 @@ padding:20px;
 <!-- MODULE 3: ACCESS -->
 <section class="panel price-card" id="access">
 <h2 style="text-align:center;">03. Instant Access</h2>
-<p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. One-time access to the full audit and recovery stack.</p>
+<p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. Free: your totals and first 3 SKUs. Paid: every SKU's Keep, Reprice or Kill call, the results CSV, and clean copy of every rebuttal letter.</p>
 <div class="price-tag">$29.99 <span class="unit">one-time</span></div>
 <p class="price-note" style="margin-bottom:4px;">Most FBA mentorship programs run $1,000–$5,000. This is $29.99, once.</p>
 <p class="price-note">Secure checkout, powered by Stripe. Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund.</p>
@@ -636,10 +648,17 @@ Questions? <a href="mailto:planetblender@outlook.com">planetblender@outlook.com<
 </footer>
 <script>
 /* ---------- ACCESS / UNLOCK STATE ---------- */
+const FREE_ROWS = 3;
 let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
 if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
 isUnlocked = true;
 localStorage.setItem('fbaleaksUnlocked', 'true');
+document.addEventListener('DOMContentLoaded', function(){
+const b = document.createElement('div');
+b.className = 'paid-banner';
+b.textContent = 'Payment received. Everything is unlocked. Upload your CSV again to see every SKU.';
+document.body.insertBefore(b, document.body.firstChild);
+});
 if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
 fbq('track', 'Purchase', {value: 29.99, currency: 'USD'});
 localStorage.setItem('fbaleaksPurchaseTracked', 'true');
@@ -779,8 +798,9 @@ document.getElementById('statIncomplete').textContent = counts.incomplete;
 const body = document.getElementById('resultsBody');
 body.innerHTML = '';
 const labels = {keep:'Keep', reprice:'Reprice', kill:'Kill', incomplete:'Needs cost data'};
-results.forEach(r => {
+results.forEach((r, idx) => {
 const tr = document.createElement('tr');
+if(!isUnlocked && idx >= FREE_ROWS) tr.className = 'row-locked';
 tr.innerHTML =
 '<td>' + escapeHtml(r.sku) + '</td>' +
 '<td>' + fmtMoney(r.price) + '</td>' +
@@ -791,6 +811,34 @@ tr.innerHTML =
 '<td><span class="chip ' + r.status + '">' + labels[r.status] + '</span></td>';
 body.appendChild(tr);
 });
+let lossPerUnit = 0, lossOnUnits = 0, anyUnits = false;
+results.forEach(r => {
+if(r.status === 'kill' && isFinite(r.profit)){
+lossPerUnit += Math.abs(r.profit);
+if(r.units !== null && isFinite(r.units) && r.units > 0){ lossOnUnits += Math.abs(r.profit) * r.units; anyUnits = true; }
+}
+});
+const lossEl = document.getElementById('lossLine');
+if(counts.kill === 0){
+lossEl.innerHTML = 'On these numbers, none of your SKUs lose money.';
+} else if(anyUnits){
+lossEl.innerHTML = 'Your ' + counts.kill + ' Kill SKUs are losing you about <strong>$' + lossOnUnits.toFixed(0) + '</strong> on the units you sold.';
+} else {
+lossEl.innerHTML = 'Your ' + counts.kill + ' Kill SKUs lose <strong>$' + lossPerUnit.toFixed(2) + '</strong> combined on every unit sold.';
+}
+const cta = document.getElementById('lockCta');
+const dl = document.getElementById('downloadBtn');
+if(isUnlocked){
+cta.style.display = 'none';
+dl.textContent = 'Download results CSV';
+} else {
+const hidden = Math.max(0, results.length - FREE_ROWS);
+document.getElementById('lockMsg').textContent = (hidden > 0
+? hidden + ' more SKUs are hidden. Unlock every SKU\'s call, the results CSV and clean copy of every rebuttal letter for $29.99, once. 7-day refund.'
+: 'Unlock the results CSV and clean copy of every rebuttal letter for $29.99, once. 7-day refund.');
+cta.style.display = 'block';
+dl.textContent = 'Unlock results CSV — $29.99';
+}
 document.getElementById('resultsBlock').style.display = 'block';
 }
 function escapeHtml(str){
@@ -799,13 +847,17 @@ div.textContent = str;
 return div.innerHTML;
 }
 document.getElementById('downloadBtn').addEventListener('click', function(){
+if(!isUnlocked){
+window.open('https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04', '_blank', 'noopener');
+return;
+}
 if(!lastResults.length) return;
 const rows = lastResults.map(r => ({
 SKU: r.sku,
 Price: isFinite(r.price) ? r.price.toFixed(2) : '',
 Cost: isFinite(r.cost) ? r.cost.toFixed(2) : '',
-Fees: isFinite(r.fees) ? r.fees.toFixed(2) : '',
-Profit: isFinite(r.profit) ? r.profit.toFixed(2) : '',
+Fees: (r.fees !== null && isFinite(r.fees)) ? r.fees.toFixed(2) : '',
+Profit: (r.profit !== null && isFinite(r.profit)) ? r.profit.toFixed(2) : '',
 'ROI %': r.roi !== null && isFinite(r.roi) ? r.roi.toFixed(1) : '',
 Status: r.status
 }));
