@@ -21,9 +21,18 @@ src="https://www.facebook.com/tr?id=1048040104711797&ev=PageView&noscript=1"
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $29.99 one-time, no subscription.">
 <title>fbaleaks — Margin Audit & Rebuttal Engine</title>
+<link rel="canonical" href="https://fbaleaks.com/">
+<meta name="theme-color" content="#1B2130">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fbaleaks.com/">
+<meta property="og:title" content="fbaleaks: find the SKUs losing you money">
+<meta property="og:description" content="Upload your inventory CSV and get a Keep, Reprice or Kill call on every SKU. Draft rebuttals for denied Amazon reimbursement claims. $29.99 once.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%231B2130%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23C7A467%22 font-family=%22serif%22 font-weight=%22700%22%3Ef%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" defer></script>
 <style>
 :root{
 --navy:#1B2130;
@@ -435,9 +444,17 @@ padding:20px;
 .lock-cta p{margin:0 0 12px;font-size:0.95rem;}
 .lock-cta .btn-access{display:inline-block;}
 .paid-banner{background:var(--stamp-green);color:#fff;text-align:center;padding:12px 16px;font-size:0.95rem;}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;text-align:left;}
+@media(max-width:560px){.compare{grid-template-columns:1fr;}}
+.compare-col{background:var(--navy);border:1px solid rgba(199,164,103,0.25);border-radius:4px;padding:14px;}
+.compare-col.paid{border-color:var(--kraft);}
+.compare-col h3{font-family:'Roboto Slab',serif;font-size:0.95rem;color:var(--kraft);margin:0 0 8px;}
+.compare-col ul{margin:0;padding-left:18px;font-size:0.82rem;line-height:1.6;color:var(--paper-dim);}
+.noscript-msg{background:var(--stamp-red);color:#fff;text-align:center;padding:12px 16px;font-size:0.9rem;margin:0;}
 </style>
 </head>
 <body>
+<noscript><p class="noscript-msg">This tool runs in your browser and needs JavaScript turned on.</p></noscript>
 <header>
 <p class="kicker">fbaleaks &middot; margin audit &amp; recovery toolkit</p>
 <h1 class="wordmark">fba<span>leaks</span></h1>
@@ -461,7 +478,7 @@ padding:20px;
 <div class="amount-lbl">Estimated aged-inventory cost, per year</div>
 <div class="pitch">That's a rough, honest range — actual fees depend on size tier and exact age. Want the real number for every SKU you own, plus which ones to kill before they cost you more? <a href="#access">See the full audit below &darr;</a></div>
 </div>
-<p class="calc-note">Estimate only, based on Amazon's published aged-inventory surcharge ranges. Not tied to your account — runs entirely in your browser.</p>
+<p class="calc-note">Ballpark only, not from your account. Assumes roughly $10 to $18 per aged unit per year; small items usually cost less and bulky ones more. Check Seller Central for your exact fees. Runs entirely in your browser.</p>
 </section>
 <!-- HERO / OFFER -->
 <section class="panel hero-panel">
@@ -495,14 +512,16 @@ padding:20px;
 <div class="item">💳 $29.99 one-time — vs. $1,000–$5,000 for a typical FBA mentorship</div>
 <div class="item">↩️ Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund</div>
 </div>
-<a href="#access" class="btn-access hero-cta">See pricing &darr;</a>
+<a href="#triage" class="btn-access hero-cta">Try it free with sample data &darr;</a>
+<p class="sample-caption"><a href="#access">See pricing</a></p>
 </section>
 <!-- MODULE 1: TRIAGE -->
-<section class="panel">
+<section class="panel" id="triage">
 <h2>01. Keep / Reprice / Kill Triage</h2>
 <p class="desc">Upload your inventory CSV — Amazon export or your own tracking sheet, as long as it has a cost column — and this will sort every SKU into Keep, Reprice, or Kill based on real margin.</p>
 <label for="csvFile">Upload CSV</label>
 <input type="file" id="csvFile" accept=".csv">
+<button class="btn-ghost" id="sampleBtn" type="button" style="margin-top:10px;">Try it with sample data</button>
 <p class="error-msg" id="parseError">Couldn't read that file — make sure it's a CSV with a header row.</p>
 <div class="mapping-box" id="mappingBox">
 <label for="colSku">SKU / ASIN column</label>
@@ -551,7 +570,7 @@ padding:20px;
 <div class="summary-stat kill"><div class="num" id="statKill">0</div><div class="lbl">Kill</div></div>
 <div class="summary-stat"><div class="num" id="statIncomplete">0</div><div class="lbl">Needs cost data</div></div>
 </div>
-<p class="loss-line" id="lossLine"></p>
+<p class="loss-line" id="lossLine" role="status" aria-live="polite"></p>
 <div class="results-wrap">
 <table id="resultsTable">
 <thead>
@@ -635,7 +654,27 @@ padding:20px;
 <!-- MODULE 3: ACCESS -->
 <section class="panel price-card" id="access">
 <h2 style="text-align:center;">03. Instant Access</h2>
-<p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. Free: your totals and first 3 SKUs. Paid: every SKU's Keep, Reprice or Kill call, the results CSV, and clean copy of every rebuttal letter.</p>
+<p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. One payment, yours to keep.</p>
+<div class="compare">
+<div class="compare-col">
+<h3>Free</h3>
+<ul>
+<li>Aged-inventory estimate</li>
+<li>Keep / Reprice / Kill totals</li>
+<li>Your first 3 SKUs</li>
+<li>Preview of the rebuttal letter</li>
+</ul>
+</div>
+<div class="compare-col paid">
+<h3>$29.99, once</h3>
+<ul>
+<li>Everything in Free</li>
+<li>Every SKU's call, with profit and ROI</li>
+<li>Results CSV download</li>
+<li>Clean copy of every rebuttal letter</li>
+</ul>
+</div>
+</div>
 <div class="price-tag">$29.99 <span class="unit">one-time</span></div>
 <p class="price-note" style="margin-bottom:4px;">Most FBA mentorship programs run $1,000–$5,000. This is $29.99, once.</p>
 <p class="price-note">Secure checkout, powered by Stripe. Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund.</p>
@@ -648,6 +687,13 @@ Questions? <a href="mailto:planetblender@outlook.com">planetblender@outlook.com<
 </footer>
 <script>
 /* ---------- ACCESS / UNLOCK STATE ---------- */
+function track(name, data, custom){
+try{ if(window.fbq){ if(custom){ fbq('trackCustom', name, data || {}); } else { fbq('track', name, data || {}); } } }catch(e){}
+}
+document.addEventListener('click', function(e){
+const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null;
+if(a){ track('InitiateCheckout', {value: 29.99, currency: 'USD'}); }
+});
 const FREE_ROWS = 3;
 let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
 if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
@@ -656,7 +702,7 @@ localStorage.setItem('fbaleaksUnlocked', 'true');
 document.addEventListener('DOMContentLoaded', function(){
 const b = document.createElement('div');
 b.className = 'paid-banner';
-b.textContent = 'Payment received. Everything is unlocked. Upload your CSV again to see every SKU.';
+b.innerHTML = 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
 document.body.insertBefore(b, document.body.firstChild);
 });
 if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
@@ -840,6 +886,7 @@ cta.style.display = 'block';
 dl.textContent = 'Unlock results CSV — $29.99';
 }
 document.getElementById('resultsBlock').style.display = 'block';
+track('RanAudit', {rows: results.length}, true);
 }
 function escapeHtml(str){
 const div = document.createElement('div');
@@ -848,6 +895,7 @@ return div.innerHTML;
 }
 document.getElementById('downloadBtn').addEventListener('click', function(){
 if(!isUnlocked){
+track('InitiateCheckout', {value: 29.99, currency: 'USD'});
 window.open('https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04', '_blank', 'noopener');
 return;
 }
@@ -871,6 +919,32 @@ document.body.appendChild(a);
 a.click();
 document.body.removeChild(a);
 URL.revokeObjectURL(url);
+});
+/* ---------- SAMPLE DATA ---------- */
+const SAMPLE_ROWS = [
+{'SKU':'SAMPLE-1001','Sale Price':'24.99','Unit Cost':'9.50','Units Sold':'120'},
+{'SKU':'SAMPLE-1002','Sale Price':'14.99','Unit Cost':'11.80','Units Sold':'85'},
+{'SKU':'SAMPLE-1003','Sale Price':'32.00','Unit Cost':'12.40','Units Sold':'60'},
+{'SKU':'SAMPLE-1004','Sale Price':'9.99','Unit Cost':'8.90','Units Sold':'210'},
+{'SKU':'SAMPLE-1005','Sale Price':'19.50','Unit Cost':'6.75','Units Sold':'44'},
+{'SKU':'SAMPLE-1006','Sale Price':'27.99','Unit Cost':'22.10','Units Sold':'30'},
+{'SKU':'SAMPLE-1007','Sale Price':'12.49','Unit Cost':'7.20','Units Sold':'150'},
+{'SKU':'SAMPLE-1008','Sale Price':'39.99','Unit Cost':'31.00','Units Sold':'18'}
+];
+document.getElementById('sampleBtn').addEventListener('click', function(){
+parsedRows = SAMPLE_ROWS;
+parsedHeaders = ['SKU','Sale Price','Unit Cost','Units Sold'];
+fillSelect(document.getElementById('colSku'), parsedHeaders, 'SKU', false);
+fillSelect(document.getElementById('colPrice'), parsedHeaders, 'Sale Price', false);
+fillSelect(document.getElementById('colCost'), parsedHeaders, 'Unit Cost', false);
+fillSelect(document.getElementById('colUnits'), parsedHeaders, 'Units Sold', true);
+fillSelect(document.getElementById('colFees'), parsedHeaders, '', true);
+document.getElementById('mappingBox').classList.add('show');
+track('TrySample', {}, true);
+document.getElementById('runAuditBtn').click();
+document.getElementById('lossLine').innerHTML += ' <em>(sample data)</em>';
+const rb = document.getElementById('resultsBlock');
+if(rb && rb.scrollIntoView){ rb.scrollIntoView({behavior:'smooth', block:'start'}); }
 });
 /* ---------- MODULE 2: REBUTTAL GENERATOR ---------- */
 const CLAIM_LABELS = {
@@ -961,6 +1035,7 @@ stamp.classList.add('show');
 document.getElementById('copyBtn').addEventListener('click', async () => {
 const btn = document.getElementById('copyBtn');
 if(!isUnlocked){
+track('InitiateCheckout', {value: 29.99, currency: 'USD'});
 window.open('https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04', '_blank', 'noopener');
 return;
 }
@@ -979,7 +1054,7 @@ setTimeout(() => btn.textContent = "Copy to clipboard", 1500);
 <p style="color:#4fc3f7; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px;">Why now</p>
 <h2 style="font-size:28px; font-weight:800; margin:0 0 16px;">Amazon's fees changed again in 2026 — did your margins?</h2>
 <p style="font-size:17px; color:#9aa5b1; max-width:600px; margin:0 auto 20px;">
-A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in January. fbaleaks runs the math with current 2026 rates — right in your browser, nothing uploaded to a server, nothing stored.
+A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in January. fbaleaks runs the math on your own numbers, right in your browser. Your file is never uploaded to a server.
 </p>
 </section>
 <section style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#e0e6ed;">
@@ -998,7 +1073,8 @@ A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in Janua
 </details>
 </section>
 <footer style="text-align:center; padding:24px 20px; color:#6b7684; font-size:13px; max-width:700px; margin:0 auto;">
-fbaleaks.com is an independent tool and is not affiliated with, authorized, maintained, sponsored, or endorsed by Amazon.com, Inc. or any of its affiliates.
+fbaleaks.com is an independent tool and is not affiliated with, authorized, maintained, sponsored, or endorsed by Amazon.com, Inc. or any of its affiliates.<br>
+This site uses the Meta Pixel to measure ads. Your CSV is processed in your browser and never uploaded.
 </footer>
 <script type="application/ld+json">
 {
