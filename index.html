@@ -437,6 +437,17 @@ color:var(--ink-dim);
 margin-top:10px;
 font-style:italic;
 }
+.lead-capture{
+margin-top:14px;
+padding-top:14px;
+border-top:1px dashed var(--panel-border);
+text-align:left;
+}
+.lead-capture label{margin:0 0 6px;}
+.lead-row{display:flex;gap:8px;flex-wrap:wrap;}
+.lead-row input{flex:1;min-width:160px;}
+.lead-row button{width:auto;margin-top:0;white-space:nowrap;}
+.lead-msg{font-size:0.78rem;margin-top:8px;min-height:1em;}
 footer{
 text-align:center;
 font-size:0.72rem;
@@ -492,6 +503,14 @@ padding:20px;
 <div class="amount" id="calcAmount">$0–$0</div>
 <div class="amount-lbl">Estimated aged-inventory cost, per year</div>
 <div class="pitch">That's a rough, honest range — actual fees depend on size tier and exact age. Want the real number for every SKU you own, plus which ones to kill before they cost you more? <a href="#access">See the full audit below &darr;</a></div>
+<div class="lead-capture" id="leadCapture">
+<label for="leadEmail">Want this exact number for every SKU? We'll email you the link — no spam, one email.</label>
+<div class="lead-row">
+<input type="email" id="leadEmail" placeholder="you@email.com">
+<button class="btn-primary" id="leadBtn" type="button">Email me the link</button>
+</div>
+<p class="lead-msg" id="leadMsg"></p>
+</div>
 </div>
 <p class="calc-note">Ballpark only, not from your account. Assumes roughly $10 to $18 per aged unit per year; small items usually cost less and bulky ones more. Check Seller Central for your exact fees. Runs entirely in your browser.</p>
 </section>
@@ -533,6 +552,7 @@ padding:20px;
 </div>
 <div class="trust-bar">
 <div class="item">🔒 Runs in your browser — your file is never uploaded to a server</div>
+<div class="item">🔗 No Amazon account connection required — services like Refunds Manager and Seller Locker need full Seller Central access before they'll show you anything</div>
 <div class="item">💳 $19.99 one-time — competitors charge 25% of every dollar recovered, forever</div>
 <div class="item">↩️ Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund</div>
 </div>
@@ -749,6 +769,45 @@ document.getElementById('calcResult').style.display = 'block';
 });
 document.getElementById('agedUnits').addEventListener('keydown', function(e){
 if(e.key === 'Enter'){ document.getElementById('calcBtn').click(); }
+});
+/* ---------- LEAD CAPTURE ---------- */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xljdbbvw';
+document.getElementById('leadBtn').addEventListener('click', function(){
+const emailEl = document.getElementById('leadEmail');
+const msgEl = document.getElementById('leadMsg');
+const email = emailEl.value.trim();
+if(!email || email.indexOf('@') === -1 || email.indexOf('.') === -1){
+msgEl.textContent = 'Enter a valid email.';
+msgEl.style.color = 'var(--red)';
+return;
+}
+const btn = document.getElementById('leadBtn');
+btn.disabled = true;
+btn.textContent = 'Sending...';
+fetch(FORMSPREE_ENDPOINT, {
+method: 'POST',
+headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
+body: JSON.stringify({email: email, source: 'aged-inventory-calculator', page: 'fbaleaks.com'})
+}).then(function(res){
+if(res.ok){
+msgEl.textContent = 'Sent — check your inbox for the link.';
+msgEl.style.color = 'var(--green)';
+emailEl.value = '';
+track('Lead', {}, false);
+} else {
+msgEl.textContent = 'Something went wrong — try again, or email planetblender@outlook.com directly.';
+msgEl.style.color = 'var(--red)';
+}
+}).catch(function(){
+msgEl.textContent = 'Something went wrong — try again, or email planetblender@outlook.com directly.';
+msgEl.style.color = 'var(--red)';
+}).finally(function(){
+btn.disabled = false;
+btn.textContent = 'Email me the link';
+});
+});
+document.getElementById('leadEmail').addEventListener('keydown', function(e){
+if(e.key === 'Enter'){ document.getElementById('leadBtn').click(); }
 });
 /* ---------- MODULE 1: TRIAGE ---------- */
 let parsedRows = [];
