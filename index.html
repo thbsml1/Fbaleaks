@@ -19,51 +19,56 @@ src="https://www.facebook.com/tr?id=1048040104711797&ev=PageView&noscript=1"
 <!-- End Meta Pixel Code -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $29.99 one-time, no subscription.">
+<meta name="description" content="Margin audit & reimbursement claim tool for wholesale FBA sellers. Upload inventory, get Keep/Reprice/Kill instantly. $19.99 one-time, no subscription.">
 <title>fbaleaks — Margin Audit & Rebuttal Engine</title>
 <link rel="canonical" href="https://fbaleaks.com/">
-<meta name="theme-color" content="#1B2130">
+<meta name="theme-color" content="#EAF6F1">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fbaleaks.com/">
 <meta property="og:title" content="fbaleaks: find the SKUs losing you money">
-<meta property="og:description" content="Upload your inventory CSV and get a Keep, Reprice or Kill call on every SKU. Draft rebuttals for denied Amazon reimbursement claims. $29.99 once.">
+<meta property="og:description" content="Upload your inventory CSV and get a Keep, Reprice or Kill call on every SKU. Draft rebuttals for denied Amazon reimbursement claims. $19.99 once.">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%231B2130%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23C7A467%22 font-family=%22serif%22 font-weight=%22700%22%3Ef%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2212%22 fill=%22%231B2130%22/%3E%3Ctext x=%2232%22 y=%2246%22 font-size=%2240%22 text-anchor=%22middle%22 fill=%22%23E3B34D%22 font-family=%22serif%22 font-weight=%22700%22%3Ef%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js" defer></script>
 <style>
 :root{
---navy:#1B2130;
---navy-2:#262E42;
---kraft:#C7A467;
---kraft-dim:#8B7443;
---stamp-red:#A9382F;
---stamp-green:#3F7358;
---stamp-amber:#C08A2E;
---paper:#EFE6D3;
---paper-dim:#B9AF98;
+--bg:#ffffff;
+--bg-soft:#EAF6F1;
+--panel:#ffffff;
+--panel-border:#E4E7EC;
+--input-bg:#F7F8FA;
+--ink:#1B2130;
+--ink-dim:#5B6472;
+--blue:#2F6FED;
+--blue-dark:#1F52C4;
+--gold:#E3B34D;
+--red:#E8503A;
+--green:#22C08F;
+--amber:#E8A93A;
 }
 *{box-sizing:border-box;}
 body{
 margin:0;
-background:var(--navy);
-color:var(--paper);
+background:var(--bg);
+color:var(--ink);
 font-family:'IBM Plex Mono',monospace;
 min-height:100vh;
 }
-a{color:var(--kraft);}
+a{color:var(--blue);}
 header{
 padding:32px 20px 22px;
-border-bottom:1px solid rgba(199,164,103,0.25);
+background:linear-gradient(180deg,#FBFDFC 0%,var(--bg-soft) 100%);
+border-bottom:1px solid var(--panel-border);
 text-align:center;
 }
 .kicker{
 font-size:0.72rem;
 letter-spacing:0.14em;
 text-transform:uppercase;
-color:var(--kraft-dim);
+color:var(--ink-dim);
 margin:0 0 8px;
 }
 .wordmark{
@@ -71,13 +76,13 @@ font-family:'Roboto Slab',serif;
 font-weight:700;
 font-size:2rem;
 letter-spacing:0.01em;
-color:var(--paper);
+color:var(--ink);
 margin:0;
 }
-.wordmark span{color:var(--kraft);}
+.wordmark span{color:var(--blue);}
 .tagline{
 font-size:0.9rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 max-width:52ch;
 margin:12px auto 0;
 line-height:1.55;
@@ -85,8 +90,8 @@ line-height:1.55;
 .live-pill{
 display:inline-block;
 margin-top:16px;
-border:2px solid var(--stamp-green);
-color:var(--stamp-green);
+border:2px solid var(--green);
+color:var(--green);
 font-family:'Roboto Slab',serif;
 font-weight:700;
 font-size:0.7rem;
@@ -94,8 +99,7 @@ letter-spacing:0.12em;
 text-transform:uppercase;
 padding:5px 12px;
 border-radius:4px;
-transform:rotate(-3deg);
-background:rgba(63,115,88,0.08);
+background:rgba(34,192,143,0.08);
 }
 main{
 max-width:820px;
@@ -103,48 +107,50 @@ margin:0 auto;
 padding:28px 20px 60px;
 }
 .panel{
-background:var(--navy-2);
-border:1px solid rgba(199,164,103,0.2);
-border-radius:5px;
+background:var(--panel);
+border:1px solid var(--panel-border);
+box-shadow:0 1px 4px rgba(27,33,48,0.06);
+border-radius:10px;
 padding:24px;
 margin-bottom:24px;
 }
 .panel h2{
 font-family:'Roboto Slab',serif;
-font-size:1.02rem;
-letter-spacing:0.03em;
-color:var(--kraft);
+font-size:1.05rem;
+letter-spacing:0.01em;
+color:var(--ink);
+font-weight:700;
 margin:0 0 6px;
 }
 .panel .desc{
 font-size:0.85rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 line-height:1.5;
 margin:0 0 20px;
 padding-bottom:16px;
-border-bottom:1px dashed rgba(199,164,103,0.25);
+border-bottom:1px dashed var(--panel-border);
 }
 label{
 display:block;
 font-size:0.72rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 letter-spacing:0.04em;
 text-transform:uppercase;
 margin:14px 0 6px;
 }
 label:first-of-type{margin-top:0;}
-input[type=text],input[type=number],input[type=file],select,textarea{
+input[type=text],input[type=number],input[type=file],input[type=date],select,textarea{
 width:100%;
-background:var(--navy);
-border:1px solid rgba(199,164,103,0.35);
-border-radius:3px;
-color:var(--paper);
+background:var(--input-bg);
+border:1px solid var(--panel-border);
+border-radius:6px;
+color:var(--ink);
 font-family:'IBM Plex Mono',monospace;
 font-size:0.88rem;
 padding:10px 12px;
 }
 input:focus,select:focus,textarea:focus{
-outline:2px solid var(--kraft);
+outline:2px solid var(--blue);
 outline-offset:1px;
 }
 textarea{resize:vertical;min-height:70px;}
@@ -152,20 +158,20 @@ textarea{resize:vertical;min-height:70px;}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
 @media(max-width:560px){.grid3{grid-template-columns:1fr;}}
 fieldset{
-border:1px solid rgba(199,164,103,0.25);
-border-radius:3px;
+border:1px solid var(--panel-border);
+border-radius:6px;
 padding:12px 14px;
 margin:16px 0 0;
 }
 fieldset legend{
 font-size:0.72rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 letter-spacing:0.04em;
 text-transform:uppercase;
 padding:0 6px;
 }
 .check-row{display:flex;align-items:center;gap:8px;font-size:0.85rem;padding:4px 0;}
-.check-row input{width:16px;height:16px;accent-color:var(--kraft);}
+.check-row input{width:16px;height:16px;accent-color:var(--blue);}
 button{
 font-family:'IBM Plex Mono',monospace;
 cursor:pointer;
@@ -173,41 +179,41 @@ cursor:pointer;
 .btn-primary{
 width:100%;
 margin-top:20px;
-background:var(--kraft);
-color:var(--navy);
+background:var(--blue);
+color:#ffffff;
 border:none;
-border-radius:3px;
+border-radius:8px;
 padding:13px;
 font-weight:600;
 font-size:0.88rem;
 letter-spacing:0.04em;
 text-transform:uppercase;
 }
-.btn-primary:hover{background:#d8b98a;}
+.btn-primary:hover{background:var(--blue-dark);}
 .btn-primary:disabled{opacity:0.4;cursor:not-allowed;}
 .btn-ghost{
 background:transparent;
-border:1px solid var(--kraft);
-color:var(--kraft);
-border-radius:3px;
+border:1.5px solid var(--blue);
+color:var(--blue);
+border-radius:8px;
 padding:9px 14px;
 font-size:0.8rem;
 letter-spacing:0.03em;
 }
-.btn-ghost:hover{background:rgba(199,164,103,0.1);}
+.btn-ghost:hover{background:rgba(47,111,237,0.08);}
 .btn-ghost:disabled{opacity:0.4;cursor:not-allowed;}
 .note{
 font-size:0.72rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 margin-top:14px;
 line-height:1.5;
-border-top:1px dashed rgba(199,164,103,0.25);
+border-top:1px dashed var(--panel-border);
 padding-top:12px;
 }
 .mapping-box{display:none;margin-top:18px;}
 .mapping-box.show{display:block;}
 .error-msg{
-color:var(--stamp-red);
+color:var(--red);
 font-size:0.8rem;
 margin-top:10px;
 display:none;
@@ -217,22 +223,22 @@ display:none;
 .summary-stat{
 flex:1;
 min-width:100px;
-background:var(--navy);
-border:1px solid rgba(199,164,103,0.2);
-border-radius:4px;
+background:var(--input-bg);
+border:1px solid var(--panel-border);
+border-radius:8px;
 padding:12px;
 text-align:center;
 }
 .summary-stat .num{font-family:'Roboto Slab',serif;font-size:1.4rem;font-weight:700;}
-.summary-stat .lbl{font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--paper-dim);margin-top:2px;}
-.summary-stat.keep .num{color:var(--stamp-green);}
-.summary-stat.reprice .num{color:var(--stamp-amber);}
-.summary-stat.kill .num{color:var(--stamp-red);}
-.results-wrap{overflow-x:auto;margin-top:18px;border-radius:4px;}
-table{width:100%;border-collapse:collapse;font-size:0.78rem;background:var(--paper);color:#2a2620;}
+.summary-stat .lbl{font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-dim);margin-top:2px;}
+.summary-stat.keep .num{color:var(--green);}
+.summary-stat.reprice .num{color:var(--amber);}
+.summary-stat.kill .num{color:var(--red);}
+.results-wrap{overflow-x:auto;margin-top:18px;border-radius:8px;}
+table{width:100%;border-collapse:collapse;font-size:0.78rem;background:#ffffff;color:var(--ink);border:1px solid var(--panel-border);}
 th,td{padding:8px 10px;text-align:left;white-space:nowrap;}
-th{background:#dccfae;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.04em;}
-tr:nth-child(even){background:#e6ddc6;}
+th{background:var(--input-bg);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-dim);}
+tr:nth-child(even){background:#F7F8FA;}
 .chip{
 display:inline-block;
 font-family:'Roboto Slab',serif;
@@ -240,33 +246,31 @@ font-weight:700;
 font-size:0.62rem;
 letter-spacing:0.06em;
 text-transform:uppercase;
-padding:3px 8px;
-border-radius:3px;
-border:1.5px solid;
-transform:rotate(-2deg);
+padding:3px 10px;
+border-radius:999px;
 }
-.chip.keep{color:var(--stamp-green);border-color:var(--stamp-green);background:rgba(63,115,88,0.08);}
-.chip.reprice{color:var(--stamp-amber);border-color:var(--stamp-amber);background:rgba(192,138,46,0.08);}
-.chip.kill{color:var(--stamp-red);border-color:var(--stamp-red);background:rgba(169,56,47,0.08);}
-.chip.incomplete{color:#6b6455;border-color:#9c927c;background:rgba(0,0,0,0.03);}
+.chip.keep{color:#189873;background:#DDF6EC;}
+.chip.reprice{color:#9C6B12;background:#FBF0DD;}
+.chip.kill{color:var(--red);background:#FBE1DC;}
+.chip.incomplete{color:var(--ink-dim);background:#EEF0F3;}
 .stamp{
 position:absolute;
 top:14px;
 right:14px;
-border:3px solid var(--stamp-red);
-color:var(--stamp-red);
+background:var(--gold);
+color:var(--ink);
 font-family:'Roboto Slab',serif;
 font-weight:700;
 font-size:0.7rem;
-letter-spacing:0.12em;
+letter-spacing:0.1em;
 text-transform:uppercase;
-padding:6px 10px;
-border-radius:4px;
-transform:rotate(-8deg);
+padding:6px 11px;
+border-radius:999px;
+transform:rotate(3deg);
 opacity:0;
 transition:opacity 0.25s ease;
 pointer-events:none;
-background:rgba(169,56,47,0.06);
+box-shadow:0 4px 10px rgba(0,0,0,0.12);
 }
 .stamp.show{opacity:1;}
 @media (prefers-reduced-motion: reduce){.stamp{transition:none;}}
@@ -275,28 +279,30 @@ background:rgba(169,56,47,0.06);
 position:absolute;
 top:50%;
 left:50%;
-transform:translate(-50%,-50%) rotate(-10deg);
+transform:translate(-50%,-50%);
 display:none;
-border:3px solid var(--stamp-red);
-color:var(--stamp-red);
+border:3px solid var(--red);
+color:var(--red);
 font-family:'Roboto Slab',serif;
 font-weight:700;
-font-size:1.15rem;
-letter-spacing:0.06em;
+font-size:1.1rem;
+letter-spacing:0.05em;
 text-transform:uppercase;
 padding:8px 18px;
-border-radius:6px;
-background:rgba(239,230,211,0.9);
+border-radius:8px;
+background:rgba(255,255,255,0.94);
 text-align:center;
 white-space:nowrap;
 pointer-events:none;
+box-shadow:0 6px 20px rgba(27,33,48,0.15);
 }
 .sample-overlay.show{display:block;}
-@media(max-width:480px){.sample-overlay{font-size:0.7rem;padding:6px 12px;white-space:normal;width:80%;}}
+@media(max-width:480px){.sample-overlay{font-size:0.68rem;padding:6px 12px;white-space:normal;width:80%;}}
 .letter{
-background:var(--paper);
-color:#2a2620;
-border-radius:3px;
+background:var(--input-bg);
+color:var(--ink);
+border:1px solid var(--panel-border);
+border-radius:8px;
 padding:18px;
 font-family:'IBM Plex Mono',monospace;
 font-size:0.82rem;
@@ -307,7 +313,7 @@ max-height:480px;
 overflow-y:auto;
 }
 .letter.empty{
-color:#6b6455;
+color:var(--ink-dim);
 font-style:italic;
 display:flex;
 align-items:center;
@@ -315,22 +321,22 @@ justify-content:center;
 text-align:center;
 }
 .price-card{text-align:center;}
-.price-tag{font-family:'Roboto Slab',serif;font-size:2.1rem;font-weight:700;color:var(--paper);margin:14px 0 4px;}
-.price-tag .unit{font-size:0.9rem;font-weight:400;color:var(--paper-dim);}
-.price-note{font-size:0.8rem;color:var(--paper-dim);margin-bottom:18px;}
+.price-tag{font-family:'Roboto Slab',serif;font-size:2.1rem;font-weight:700;color:var(--ink);margin:14px 0 4px;}
+.price-tag .unit{font-size:0.9rem;font-weight:400;color:var(--ink-dim);}
+.price-note{font-size:0.8rem;color:var(--ink-dim);margin-bottom:18px;}
 .btn-access{
 display:inline-block;
-background:var(--kraft);
-color:var(--navy);
+background:var(--blue);
+color:#ffffff;
 font-weight:600;
 text-decoration:none;
 padding:13px 28px;
-border-radius:3px;
+border-radius:8px;
 letter-spacing:0.04em;
 text-transform:uppercase;
 font-size:0.85rem;
 }
-.btn-access:hover{background:#d8b98a;}
+.btn-access:hover{background:var(--blue-dark);}
 .hero-panel h2{text-align:center;font-size:1.3rem;}
 .how-it-works{
 display:flex;
@@ -342,16 +348,16 @@ margin:18px 0;
 display:flex;
 align-items:center;
 gap:12px;
-background:var(--navy);
-border:1px solid rgba(199,164,103,0.25);
-border-radius:4px;
+background:var(--input-bg);
+border:1px solid var(--panel-border);
+border-radius:8px;
 padding:11px 14px;
 font-size:0.85rem;
 }
 .how-it-works .step .n{
 font-family:'Roboto Slab',serif;
 font-weight:700;
-color:var(--kraft);
+color:var(--blue);
 flex-shrink:0;
 }
 .trust-bar{
@@ -360,14 +366,14 @@ flex-direction:column;
 gap:7px;
 margin-top:16px;
 padding-top:16px;
-border-top:1px dashed rgba(199,164,103,0.25);
+border-top:1px dashed var(--panel-border);
 }
 .trust-bar .item{
 display:flex;
 align-items:center;
 gap:10px;
 font-size:0.8rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 }
 .hero-cta{
 display:block;
@@ -379,17 +385,17 @@ text-align:center;
 font-size:0.68rem;
 letter-spacing:0.08em;
 text-transform:uppercase;
-color:var(--kraft-dim);
+color:var(--ink-dim);
 margin:18px 0 0;
 }
 .sample-caption{
 text-align:center;
 font-size:0.72rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 margin:10px 0 0;
 font-style:italic;
 }
-.calc-panel{border-color:rgba(199,164,103,0.35);}
+.calc-panel{border-left:4px solid var(--green);}
 .calc-row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
 .calc-row .field{flex:1;min-width:180px;}
 .calc-row label{margin:0 0 6px;}
@@ -398,59 +404,68 @@ font-style:italic;
 display:none;
 margin-top:18px;
 padding:18px;
-background:var(--navy);
-border:1px dashed rgba(199,164,103,0.4);
-border-radius:4px;
+background:var(--bg-soft);
+border:1px dashed var(--green);
+border-radius:8px;
 text-align:center;
 }
 .calc-result .amount{
 font-family:'Roboto Slab',serif;
 font-weight:700;
 font-size:1.7rem;
-color:var(--kraft);
+color:var(--green);
 }
 .calc-result .amount-lbl{
 font-size:0.68rem;
 letter-spacing:0.08em;
 text-transform:uppercase;
-color:var(--paper-dim);
+color:var(--ink-dim);
 margin-top:4px;
 }
 .calc-result .pitch{
 font-size:0.82rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 margin-top:14px;
 padding-top:14px;
-border-top:1px dashed rgba(199,164,103,0.25);
+border-top:1px dashed var(--panel-border);
 line-height:1.5;
 }
-.calc-result .pitch a{color:var(--kraft);font-weight:600;}
+.calc-result .pitch a{color:var(--blue);font-weight:600;}
 .calc-note{
 font-size:0.7rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 margin-top:10px;
 font-style:italic;
 }
 footer{
 text-align:center;
 font-size:0.72rem;
-color:var(--paper-dim);
+color:var(--ink-dim);
 padding:20px;
 }
 .loss-line{margin-top:14px;font-size:1rem;}
-.loss-line strong{color:var(--stamp-red);}
+.loss-line strong{color:var(--red);}
 .row-locked td{filter:blur(5px);user-select:none;pointer-events:none;}
-.lock-cta{margin-top:14px;padding:16px;border:1px solid var(--kraft-dim);border-radius:4px;background:rgba(199,164,103,0.12);text-align:center;}
+.lock-cta{margin-top:14px;padding:16px;border:1px solid var(--blue);border-radius:8px;background:rgba(47,111,237,0.06);text-align:center;}
 .lock-cta p{margin:0 0 12px;font-size:0.95rem;}
 .lock-cta .btn-access{display:inline-block;}
-.paid-banner{background:var(--stamp-green);color:#fff;text-align:center;padding:12px 16px;font-size:0.95rem;}
+.paid-banner{background:var(--green);color:#fff;text-align:center;padding:12px 16px;font-size:0.95rem;}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;text-align:left;}
 @media(max-width:560px){.compare{grid-template-columns:1fr;}}
-.compare-col{background:var(--navy);border:1px solid rgba(199,164,103,0.25);border-radius:4px;padding:14px;}
-.compare-col.paid{border-color:var(--kraft);}
-.compare-col h3{font-family:'Roboto Slab',serif;font-size:0.95rem;color:var(--kraft);margin:0 0 8px;}
-.compare-col ul{margin:0;padding-left:18px;font-size:0.82rem;line-height:1.6;color:var(--paper-dim);}
-.noscript-msg{background:var(--stamp-red);color:#fff;text-align:center;padding:12px 16px;font-size:0.9rem;margin:0;}
+.compare-col{background:var(--input-bg);border:1px solid var(--panel-border);border-radius:8px;padding:14px;}
+.compare-col.paid{border-color:var(--blue);background:#F2F6FF;}
+.compare-col h3{font-family:'Roboto Slab',serif;font-size:0.95rem;color:var(--ink);font-weight:700;margin:0 0 8px;}
+.compare-col ul{margin:0;padding-left:18px;font-size:0.82rem;line-height:1.6;color:var(--ink-dim);}
+.noscript-msg{background:var(--red);color:#fff;text-align:center;padding:12px 16px;font-size:0.9rem;margin:0;}
+
+/* Laptop frame — hero example only, purely decorative */
+.laptop-wrap{position:relative;max-width:460px;margin:18px auto 0;}
+.laptop-bezel{background:var(--ink);border-radius:14px 14px 4px 4px;padding:10px 10px 14px;position:relative;box-shadow:0 16px 40px rgba(27,33,48,0.18);}
+.laptop-cam{position:absolute;top:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#3a4256;}
+.laptop-screen{background:#ffffff;border-radius:6px;overflow:hidden;}
+.laptop-base{height:14px;margin:0 -12px;background:linear-gradient(180deg,#2A3348 0%,#171C29 100%);border-radius:0 0 8px 8px;position:relative;}
+.laptop-base::after{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:60px;height:4px;background:rgba(0,0,0,0.25);border-radius:0 0 4px 4px;}
+.laptop-badge{position:absolute;top:-12px;right:6px;background:var(--ink);color:#fff;font-size:0.62rem;font-weight:700;letter-spacing:0.05em;padding:5px 9px;border-radius:999px;box-shadow:0 4px 12px rgba(27,33,48,0.25);z-index:2;}
 </style>
 </head>
 <body>
@@ -485,11 +500,16 @@ padding:20px;
 <h2>Find out which SKUs are quietly losing you money</h2>
 <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">Upload your inventory, get a Keep/Reprice/Kill call on every SKU, and turn a denied Amazon claim into a real rebuttal — in minutes, right in your browser.</p>
 <p class="sample-label">Example output</p>
-<div class="summary-row">
+<div class="laptop-wrap">
+<div class="laptop-badge">Live example</div>
+<div class="laptop-bezel">
+<div class="laptop-cam"></div>
+<div class="laptop-screen">
+<div class="summary-row" style="margin:14px 14px 0;">
 <div class="summary-stat keep"><div class="num">1</div><div class="lbl">Keep</div></div>
 <div class="summary-stat kill"><div class="num">2</div><div class="lbl">Kill</div></div>
 </div>
-<div class="results-wrap">
+<div class="results-wrap" style="margin:14px;">
 <table>
 <thead>
 <tr><th>SKU</th><th>Profit</th><th>Status</th></tr>
@@ -501,6 +521,10 @@ padding:20px;
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div class="laptop-base"></div>
+</div>
 <p class="sample-caption">Sample data — upload your own CSV below to see this for your inventory.</p>
 <div class="how-it-works">
 <div class="step"><span class="n">1</span><span>Upload your inventory CSV</span></div>
@@ -509,7 +533,7 @@ padding:20px;
 </div>
 <div class="trust-bar">
 <div class="item">🔒 Runs in your browser — your file is never uploaded to a server</div>
-<div class="item">💳 $29.99 one-time — vs. $1,000–$5,000 for a typical FBA mentorship</div>
+<div class="item">💳 $19.99 one-time — competitors charge 25% of every dollar recovered, forever</div>
 <div class="item">↩️ Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund</div>
 </div>
 <a href="#triage" class="btn-access hero-cta">Try it free with sample data &darr;</a>
@@ -581,7 +605,7 @@ padding:20px;
 </div>
 <div class="lock-cta" id="lockCta" style="display:none;">
 <p id="lockMsg"></p>
-<a class="btn-access" id="lockBtn" href="https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04" target="_blank" rel="noopener">Unlock everything — $29.99</a>
+<a class="btn-access" id="lockBtn" href="https://buy.stripe.com/cNi14mdKfelf9vCgiOe3e05" target="_blank" rel="noopener">Unlock everything — $19.99</a>
 </div>
 <button class="btn-ghost" id="downloadBtn" style="margin-top:14px;">Download results CSV</button>
 </div>
@@ -666,7 +690,7 @@ padding:20px;
 </ul>
 </div>
 <div class="compare-col paid">
-<h3>$29.99, once</h3>
+<h3>$19.99, once</h3>
 <ul>
 <li>Everything in Free</li>
 <li>Every SKU's call, with profit and ROI</li>
@@ -675,10 +699,10 @@ padding:20px;
 </ul>
 </div>
 </div>
-<div class="price-tag">$29.99 <span class="unit">one-time</span></div>
-<p class="price-note" style="margin-bottom:4px;">Most FBA mentorship programs run $1,000–$5,000. This is $29.99, once.</p>
+<div class="price-tag">$19.99 <span class="unit">one-time</span></div>
+<p class="price-note" style="margin-bottom:4px;">Getida and Seller Investigators charge 25% of everything they recover for you — forever. fbaleaks is $19.99, once. You keep 100%.</p>
 <p class="price-note">Secure checkout, powered by Stripe. Not useful? <a href="mailto:planetblender@outlook.com">Email us</a> within 7 days for a full refund.</p>
-<a href="https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04" class="btn-access" target="_blank" rel="noopener">Secure your access</a>
+<a href="https://buy.stripe.com/cNi14mdKfelf9vCgiOe3e05" class="btn-access" target="_blank" rel="noopener">Secure your access</a>
 </section>
 </main>
 <footer>
@@ -692,7 +716,7 @@ try{ if(window.fbq){ if(custom){ fbq('trackCustom', name, data || {}); } else { 
 }
 document.addEventListener('click', function(e){
 const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null;
-if(a){ track('InitiateCheckout', {value: 29.99, currency: 'USD'}); }
+if(a){ track('InitiateCheckout', {value: 19.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
 let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
@@ -706,7 +730,7 @@ b.innerHTML = 'Payment received. Everything is unlocked. <a href="#triage" style
 document.body.insertBefore(b, document.body.firstChild);
 });
 if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
-fbq('track', 'Purchase', {value: 29.99, currency: 'USD'});
+fbq('track', 'Purchase', {value: 19.99, currency: 'USD'});
 localStorage.setItem('fbaleaksPurchaseTracked', 'true');
 }
 }
@@ -880,10 +904,10 @@ dl.textContent = 'Download results CSV';
 } else {
 const hidden = Math.max(0, results.length - FREE_ROWS);
 document.getElementById('lockMsg').textContent = (hidden > 0
-? hidden + ' more SKUs are hidden. Unlock every SKU\'s call, the results CSV and clean copy of every rebuttal letter for $29.99, once. 7-day refund.'
-: 'Unlock the results CSV and clean copy of every rebuttal letter for $29.99, once. 7-day refund.');
+? hidden + ' more SKUs are hidden. Unlock every SKU\'s call, the results CSV and clean copy of every rebuttal letter for $19.99, once. 7-day refund.'
+: 'Unlock the results CSV and clean copy of every rebuttal letter for $19.99, once. 7-day refund.');
 cta.style.display = 'block';
-dl.textContent = 'Unlock results CSV — $29.99';
+dl.textContent = 'Unlock results CSV — $19.99';
 }
 document.getElementById('resultsBlock').style.display = 'block';
 track('RanAudit', {rows: results.length}, true);
@@ -895,8 +919,8 @@ return div.innerHTML;
 }
 document.getElementById('downloadBtn').addEventListener('click', function(){
 if(!isUnlocked){
-track('InitiateCheckout', {value: 29.99, currency: 'USD'});
-window.open('https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04', '_blank', 'noopener');
+track('InitiateCheckout', {value: 19.99, currency: 'USD'});
+window.open('https://buy.stripe.com/cNi14mdKfelf9vCgiOe3e05', '_blank', 'noopener');
 return;
 }
 if(!lastResults.length) return;
@@ -1026,7 +1050,7 @@ sampleOverlay.classList.remove('show');
 copyBtn.textContent = "Copy to clipboard";
 } else {
 sampleOverlay.classList.add('show');
-copyBtn.textContent = "Unlock clean copy — $29.99";
+copyBtn.textContent = "Unlock clean copy — $19.99";
 }
 stamp.classList.remove('show');
 void stamp.offsetWidth;
@@ -1035,8 +1059,8 @@ stamp.classList.add('show');
 document.getElementById('copyBtn').addEventListener('click', async () => {
 const btn = document.getElementById('copyBtn');
 if(!isUnlocked){
-track('InitiateCheckout', {value: 29.99, currency: 'USD'});
-window.open('https://buy.stripe.com/7sY5kCcGb7WR5fm4A6e3e04', '_blank', 'noopener');
+track('InitiateCheckout', {value: 19.99, currency: 'USD'});
+window.open('https://buy.stripe.com/cNi14mdKfelf9vCgiOe3e05', '_blank', 'noopener');
 return;
 }
 const text = document.getElementById('letterOut').textContent;
@@ -1050,29 +1074,29 @@ setTimeout(() => btn.textContent = "Copy to clipboard", 1500);
 }
 });
 </script>
-<section style="background:#0d1b2a; color:#e0e6ed; padding:32px 20px; text-align:center; font-family:inherit;">
-<p style="color:#4fc3f7; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px;">Why now</p>
+<section style="background:#EAF6F1; color:#1B2130; padding:32px 20px; text-align:center; font-family:inherit;">
+<p style="color:#2F6FED; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin-bottom:12px;">Why now</p>
 <h2 style="font-size:28px; font-weight:800; margin:0 0 16px;">Amazon's fees changed again in 2026 — did your margins?</h2>
-<p style="font-size:17px; color:#9aa5b1; max-width:600px; margin:0 auto 20px;">
+<p style="font-size:17px; color:#5B6472; max-width:600px; margin:0 auto 20px;">
 A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in January. fbaleaks runs the math on your own numbers, right in your browser. Your file is never uploaded to a server.
 </p>
 </section>
-<section style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#e0e6ed;">
+<section style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#1B2130;">
 <h3 style="font-size:22px; margin-bottom:16px;">Questions people ask first</h3>
-<details style="margin-bottom:10px; background:#111f30; padding:14px 18px; border-radius:8px;">
+<details style="margin-bottom:10px; background:#F7F8FA; border:1px solid #E4E7EC; padding:14px 18px; border-radius:8px;">
 <summary style="cursor:pointer; font-weight:600;">Is my product cost data safe?</summary>
-<p style="margin-top:10px; color:#9aa5b1;">Yes — everything runs in your browser. Your file is never uploaded to any server.</p>
+<p style="margin-top:10px; color:#5B6472;">Yes — everything runs in your browser. Your file is never uploaded to any server.</p>
 </details>
-<details style="margin-bottom:10px; background:#111f30; padding:14px 18px; border-radius:8px;">
+<details style="margin-bottom:10px; background:#F7F8FA; border:1px solid #E4E7EC; padding:14px 18px; border-radius:8px;">
 <summary style="cursor:pointer; font-weight:600;">Will Amazon reject these rebuttals?</summary>
-<p style="margin-top:10px; color:#9aa5b1;">These are starting drafts, not guaranteed approvals — swap in your real evidence and current policy before submitting.</p>
+<p style="margin-top:10px; color:#5B6472;">These are starting drafts, not guaranteed approvals — swap in your real evidence and current policy before submitting.</p>
 </details>
-<details style="margin-bottom:10px; background:#111f30; padding:14px 18px; border-radius:8px;">
+<details style="margin-bottom:10px; background:#F7F8FA; border:1px solid #E4E7EC; padding:14px 18px; border-radius:8px;">
 <summary style="cursor:pointer; font-weight:600;">Is it really a one-time fee?</summary>
-<p style="margin-top:10px; color:#9aa5b1;">Yes — $29.99 once. No subscription, no recurring charge.</p>
+<p style="margin-top:10px; color:#5B6472;">Yes — $19.99 once. No subscription, no recurring charge.</p>
 </details>
 </section>
-<footer style="text-align:center; padding:24px 20px; color:#6b7684; font-size:13px; max-width:700px; margin:0 auto;">
+<footer style="text-align:center; padding:24px 20px; color:#5B6472; font-size:13px; max-width:700px; margin:0 auto;">
 fbaleaks.com is an independent tool and is not affiliated with, authorized, maintained, sponsored, or endorsed by Amazon.com, Inc. or any of its affiliates.<br>
 This site uses the Meta Pixel to measure ads. Your CSV is processed in your browser and never uploaded.
 </footer>
@@ -1085,7 +1109,7 @@ This site uses the Meta Pixel to measure ads. Your CSV is processed in your brow
 "operatingSystem": "Web",
 "offers": {
 "@type": "Offer",
-"price": "29.99",
+"price": "19.99",
 "priceCurrency": "USD"
 },
 "description": "Amazon FBA margin audit and reimbursement claim tool. Upload inventory, get Keep/Reprice/Kill guidance."
