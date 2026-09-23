@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en"><head>
+<title>Free FBA Reimbursement Report Checker (No Login) — fbaleaks</title>
+<meta name="description" content="Free tool: upload your Amazon Inventory Ledger and Reimbursements reports to spot lost or damaged FBA units that may not have been reimbursed. Runs in your browser. No Amazon login.">
+<link rel="canonical" href="https://fbaleaks.com/report-checker.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1048040104711797');fbq('track','PageView');</script>
+<style>
+:root{--bg-soft:#EAF6F1;--line:#E4E7EC;--ink:#1B2130;--dim:#5B6472;--blue:#2F6FED;--green:#16A07A;--red:#E23A3A}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+header{padding:24px 20px 18px;background:linear-gradient(180deg,#FBFDFC,var(--bg-soft));border-bottom:1px solid var(--line);text-align:center}
+.wm{font-family:'Roboto Slab',serif;font-weight:700;font-size:1.5rem;color:var(--ink);text-decoration:none}.wm span{color:var(--blue)}
+main{max-width:680px;margin:0 auto;padding:28px 20px 60px}
+h1{font-family:'Roboto Slab',serif;font-size:1.6rem;line-height:1.3;margin:0 0 10px}h2{font-family:'Roboto Slab',serif;font-size:1.1rem;margin:26px 0 10px}
+p{font-size:.93rem;line-height:1.65;margin:0 0 14px}.dim{color:var(--dim)}
+label{display:block;font-weight:600;font-size:.85rem;margin:14px 0 6px}
+input[type=number],input[type=email],input[type=file]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:8px;padding:13px 20px;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;font-family:inherit}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}
+.big{font-family:'Roboto Slab',serif;font-weight:900;font-size:2.2rem;color:var(--red);margin:6px 0}
+.cta{background:var(--bg-soft);border:1px dashed #22C08F;border-radius:12px;padding:18px;text-align:center;margin:22px 0}
+table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+.scroll{overflow-x:auto}footer{text-align:center;font-size:.72rem;color:var(--dim);padding:24px}
+</style>
+</head><body>
+<header><a class="wm" href="https://fbaleaks.com/">fba<span>leaks</span></a></header>
+<main>
+<p class="dim" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px">Free tool · No login</p>
+<h1>Did Amazon lose units and never pay you?</h1>
+<p>Upload two reports from Seller Central. We compare units Amazon marked lost or damaged against what it actually reimbursed, and flag the gaps. <b>Your files never leave your device.</b> Everything runs right here in your browser.</p>
+<div class="card">
+<h2 style="margin-top:0">1. Inventory Ledger (required)</h2>
+<p class="dim" style="font-size:.8rem">Seller Central → Reports → Fulfillment → <b>Inventory Ledger</b> → Detailed view → last 18 months → Download (.csv or .txt)</p>
+<input type="file" id="led" accept=".csv,.txt,.tsv">
+<h2>2. Reimbursements report (recommended)</h2>
+<p class="dim" style="font-size:.8rem">Seller Central → Reports → Fulfillment → <b>Reimbursements</b> → same date range → Download</p>
+<input type="file" id="rei" accept=".csv,.txt,.tsv">
+<label for="uv">Average value per unit, $ (used only if there's no reimbursement report)</label>
+<input type="number" id="uv" inputmode="decimal" min="0" placeholder="e.g. 15">
+<p style="margin:16px 0 0"><button class="btn" id="go" type="button">Check my reports</button></p>
+<p id="err" style="color:#E23A3A;margin:10px 0 0"></p>
+</div>
+<div id="out" style="display:none">
+<div class="card" style="text-align:center">
+<p class="dim" style="margin:0">Units possibly never reimbursed</p>
+<div class="big" id="units"></div>
+<p class="dim" id="val" style="margin:0"></p>
+</div>
+<div class="scroll"><table><thead><tr><th>SKU</th><th>Product</th><th>Lost</th><th>Found</th><th>Damaged</th><th>Paid</th><th>Gap</th><th>Est. $</th></tr></thead><tbody id="tb"></tbody></table></div>
+<p class="dim" style="font-size:.78rem;margin-top:12px">These are <b>possible</b> gaps, not guaranteed claims. Amazon sometimes finds units later or reimburses under a different ID, and claim windows are limited. Check each SKU in Seller Central before filing, and check the current deadline there.</p>
+<div class="cta">
+<p style="margin:0 0 12px">Found gaps and Amazon denied your claim? fbaleaks drafts a clear rebuttal in about a minute. $19.99 once, you keep 100%, 7-day money-back guarantee.</p>
+<a class="btn" href="https://fbaleaks.com/#rebuttal">Draft my rebuttal →</a>
+</div>
+</div>
+<div class="cta" style="background:#fff;border-color:#2F6FED">
+<p style="font-weight:700;margin:0 0 6px">📋 Free: The 10-Minute FBA Leak Checklist</p>
+<form action="https://formsubmit.co/planetblender@outlook.com" method="POST" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+<input type="email" name="email" placeholder="Your email" required aria-label="Your email" style="flex:1 1 200px;max-width:320px">
+<input type="hidden" name="_subject" value="New fbaleaks signup (report checker)">
+<input type="hidden" name="_next" value="https://fbaleaks.com/checklist.html">
+<input type="hidden" name="_captcha" value="false">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<button class="btn" type="submit">Send me the checklist</button>
+</form>
+</div>
+</main>
+<footer>&copy; 2026 fbaleaks.com &middot; <a href="https://fbaleaks.com/">Back to fbaleaks</a></footer>
+<script>
+function parse(t){t=t.replace(/^\uFEFF/,'');const first=t.split(/\r?\n/)[0]||'';const d=(first.split('\t').length>first.split(',').length)?'\t':',';
+const rows=[];let row=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];
+if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+else if(c=='"'&&f==='')q=true;else if(c===d){row.push(f);f=''}else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;row.push(f);f='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[]}else f+=c}
+if(f!==''||row.length){row.push(f);if(row.some(x=>x.trim()!==''))rows.push(row)}
+const h=(rows.shift()||[]).map(x=>x.toLowerCase().replace(/[^a-z0-9]/g,''));
+return rows.map(r=>{const o={};h.forEach((k,i)=>o[k]=(r[i]||'').trim());return o})}
+const num=v=>{const n=parseFloat(String(v||'').replace(/[^0-9.\-]/g,''));return isNaN(n)?0:n};
+function pick(o,names){for(const n of names)if(o[n]!==undefined&&o[n]!=='')return o[n];return ''}
+function analyze(ledgerTxt,reimbTxt,unitVal){
+const S={};const g=k=>S[k]||(S[k]={fnsku:k,sku:'',title:'',lost:0,found:0,damaged:0,reimb:0,amt:0});
+let adj=0;
+for(const r of parse(ledgerTxt)){const ev=pick(r,['eventtype','event']).toLowerCase();if(!ev.includes('adjust'))continue;
+const k=pick(r,['fnsku']);if(!k)continue;const code=pick(r,['reason','reasoncode']).toUpperCase();const q=Math.abs(num(pick(r,['quantity','qty'])));
+const s=g(k);s.sku=s.sku||pick(r,['msku','sku','sellersku']);s.title=s.title||pick(r,['title','productname']);adj++;
+if(code==='M')s.lost+=q;else if(code==='F')s.found+=q;else if(code==='E')s.damaged+=q}
+let tq=0,ta=0;
+if(reimbTxt)for(const r of parse(reimbTxt)){const k=pick(r,['fnsku']);if(!k)continue;const reason=pick(r,['reason']).toLowerCase();
+if(!(reason.includes('lost')||reason.includes('damag')))continue;
+const q=num(pick(r,['quantityreimbursedtotal','quantityreimbursedcash','quantity']));const a=num(pick(r,['amounttotal','amount']));
+const s=g(k);s.sku=s.sku||pick(r,['sku']);s.title=s.title||pick(r,['productname','title']);s.reimb+=q;s.amt+=a;tq+=q;ta+=a}
+const avg=tq>0?ta/tq:0;const out=[];let units=0,val=0;
+for(const s of Object.values(S)){const gap=Math.max(0,s.lost-s.found)+s.damaged-s.reimb;if(gap<=0)continue;
+const per=s.reimb>0&&s.amt>0?s.amt/s.reimb:(avg||unitVal||0);s.gap=gap;s.val=gap*per;units+=gap;val+=s.val;out.push(s)}
+out.sort((a,b)=>b.val-a.val||b.gap-a.gap);return {rows:out,units,val,adj,priced:!!(avg||unitVal)}}
+
+const $=id=>document.getElementById(id);const money=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const read=f=>new Promise((ok,no)=>{if(!f)return ok('');const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>no(r.error);r.readAsText(f)});
+$('go').onclick=async()=>{$('err').textContent='';const lf=$('led').files[0];if(!lf){$('err').textContent='Please choose your Inventory Ledger file first.';return}
+try{const res=analyze(await read(lf),await read($('rei').files[0]),parseFloat($('uv').value)||0);
+if(!res.adj){$('err').textContent="We couldn't find any Adjustments rows. Make sure it's the Inventory Ledger Detailed view.";return}
+$('units').textContent=res.units.toLocaleString('en-US');
+$('val').textContent=res.priced?('Estimated value: '+money(res.val)):'Add an average unit value above to see a dollar estimate.';
+const tb=$('tb');tb.textContent='';
+for(const s of res.rows.slice(0,200)){const tr=document.createElement('tr');
+[s.sku||s.fnsku,(s.title||'').slice(0,40),s.lost,s.found,s.damaged,s.reimb,s.gap,res.priced?money(s.val):'—'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)}
+if(!res.rows.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=8;td.textContent='No gaps found. Nice! Check again monthly.';tr.appendChild(td);tb.appendChild(tr)}
+$('out').style.display='block';$('out').scrollIntoView({behavior:'smooth'});try{fbq('track','ViewContent',{content_name:'report_check'})}catch(e){}
+}catch(e){$('err').textContent='Could not read that file. Try the .txt or .csv download from Seller Central.'}};
+</script>
+</body></html>
