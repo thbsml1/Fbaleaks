@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="en"><head>
+<title>Free FBA Leak Estimator: How Much Is Amazon Costing You? — fbaleaks</title>
+<meta name="description" content="Free calculator: enter your monthly Amazon sales and see how much money may be leaking from your FBA account each year through lost units, fee errors, and returns.">
+<link rel="canonical" href="https://fbaleaks.com/leak-estimator.html">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1048040104711797');fbq('track','PageView');</script>
+<style>
+:root{--bg-soft:#EAF6F1;--line:#E4E7EC;--ink:#1B2130;--dim:#5B6472;--blue:#2F6FED;--green:#16A07A;--red:#E23A3A}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+header{padding:24px 20px 18px;background:linear-gradient(180deg,#FBFDFC,var(--bg-soft));border-bottom:1px solid var(--line);text-align:center}
+.wm{font-family:'Roboto Slab',serif;font-weight:700;font-size:1.5rem;color:var(--ink);text-decoration:none}.wm span{color:var(--blue)}
+main{max-width:680px;margin:0 auto;padding:28px 20px 60px}
+h1{font-family:'Roboto Slab',serif;font-size:1.6rem;line-height:1.3;margin:0 0 10px}h2{font-family:'Roboto Slab',serif;font-size:1.1rem;margin:26px 0 10px}
+p{font-size:.93rem;line-height:1.65;margin:0 0 14px}.dim{color:var(--dim)}
+label{display:block;font-weight:600;font-size:.85rem;margin:14px 0 6px}
+input[type=number],input[type=email],input[type=file]{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:1rem;font-family:inherit}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:8px;padding:13px 20px;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;font-family:inherit}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px;margin:18px 0}
+.big{font-family:'Roboto Slab',serif;font-weight:900;font-size:2.2rem;color:var(--red);margin:6px 0}
+.cta{background:var(--bg-soft);border:1px dashed #22C08F;border-radius:12px;padding:18px;text-align:center;margin:22px 0}
+footer{text-align:center;font-size:.72rem;color:var(--dim);padding:24px}
+</style>
+</head><body>
+<header><a class="wm" href="https://fbaleaks.com/">fba<span>leaks</span></a></header>
+<main>
+<p class="dim" style="font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 8px">Free tool</p>
+<h1>How much is your FBA account leaking?</h1>
+<p>Lost units, damaged stock, fee overcharges, and returns that never came back add up quietly. Enter your sales to see an estimate. No login, no Amazon access needed.</p>
+<div class="card">
+<label for="rev">Your average monthly Amazon sales ($)</label>
+<input type="number" id="rev" inputmode="decimal" min="0" placeholder="e.g. 10000">
+<p style="margin:14px 0 0"><button class="btn" id="go" type="button">Show my leak estimate</button></p>
+</div>
+<div id="out" class="card" style="display:none">
+<p class="dim" style="margin:0">You may be missing about</p>
+<div class="big" id="range"></div>
+<p class="dim" id="mo" style="margin:0 0 12px"></p>
+<p style="font-size:.8rem" class="dim">Estimate only. FBA auditing firms publicly estimate that discrepancies can affect roughly 1–3% of a seller's revenue. Your real number could be lower or higher, and only your own reports can tell you.</p>
+<h2>Where it usually hides</h2>
+<p>① Lost &amp; damaged units &nbsp; ② Missing inbound units &nbsp; ③ Fee overcharges &nbsp; ④ Refunds with no return &nbsp; ⑤ Storage on slow stock</p>
+<div class="cta">
+<p style="font-weight:700;margin:0 0 6px">📩 Email me my estimate + the free 10-Minute Leak Checklist</p>
+<form action="https://formsubmit.co/planetblender@outlook.com" method="POST" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+<input type="email" name="email" placeholder="Your email" required aria-label="Your email" style="flex:1 1 200px;max-width:320px">
+<input type="hidden" name="estimate" id="estField" value="">
+<input type="hidden" name="_subject" value="New fbaleaks Leak Estimator signup">
+<input type="hidden" name="_next" value="https://fbaleaks.com/checklist.html">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_autoresponse" value="Thanks for using the fbaleaks Leak Estimator! Your free 10-Minute FBA Leak Checklist is here: https://fbaleaks.com/checklist.html&#10;&#10;Want to see real numbers instead of an estimate? Upload your Amazon reports to our free Reimbursement Report Checker: https://fbaleaks.com/report-checker.html&#10;&#10;Got a claim denied? fbaleaks drafts a clear rebuttal in about a minute. $19.99 once, you keep 100%, 7-day money-back guarantee: https://fbaleaks.com&#10;&#10;Reply with any FBA question. I read every one.&#10;Anthony, fbaleaks">
+<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+<button class="btn" type="submit">Send it</button>
+</form>
+</div>
+<p style="text-align:center"><a class="btn" style="background:#16A07A" href="https://fbaleaks.com/report-checker.html">Check my real numbers (free) →</a></p>
+</div>
+</main>
+<footer>&copy; 2026 fbaleaks.com &middot; <a href="https://fbaleaks.com/">Back to fbaleaks</a></footer>
+<script>
+const $=id=>document.getElementById(id);
+const f=n=>'$'+Math.round(n).toLocaleString('en-US');
+$('go').onclick=()=>{const m=parseFloat($('rev').value);if(!(m>0)){$('rev').focus();return}
+const y=m*12,lo=y*0.01,hi=y*0.03;
+$('range').textContent=f(lo)+' – '+f(hi)+' a year';
+$('mo').textContent='That\'s roughly '+f(lo/12)+' – '+f(hi/12)+' every month.';
+$('estField').value='Monthly sales '+f(m)+' → est. leak '+f(lo)+'–'+f(hi)+'/yr';
+$('out').style.display='block';$('out').scrollIntoView({behavior:'smooth'});
+try{fbq('track','ViewContent',{content_name:'leak_estimate'})}catch(e){}};
+</script>
+</body></html>
