@@ -24,6 +24,7 @@ input[type=number],input[type=email],input[type=file]{width:100%;padding:12px 14
 table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
 .scroll{overflow-x:auto}footer{text-align:center;font-size:.72rem;color:var(--dim);padding:24px}
 </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"fbaleaks Reimbursement Report Checker","applicationCategory":"BusinessApplication","operatingSystem":"Web browser","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free, no-login tool that compares your Amazon Inventory Ledger and Reimbursements reports in your browser to flag lost or damaged FBA units that were never reimbursed.","url":"https://fbaleaks.com/report-checker.html"}</script>
 </head><body>
 <header><a class="wm" href="https://fbaleaks.com/">fba<span>leaks</span></a></header>
 <main>
@@ -50,6 +51,7 @@ table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{padding:8px 6px;
 </div>
 <div class="scroll"><table><thead><tr><th>SKU</th><th>Product</th><th>Lost</th><th>Found</th><th>Damaged</th><th>Paid</th><th>Gap</th><th>Est. $</th></tr></thead><tbody id="tb"></tbody></table></div>
 <p class="dim" style="font-size:.78rem;margin-top:12px">These are <b>possible</b> gaps, not guaranteed claims. Amazon sometimes finds units later or reimburses under a different ID, and claim windows are limited. Check each SKU in Seller Central before filing, and check the current deadline there.</p>
+<p class="dim" style="font-size:.78rem">Report didn't read correctly? Email just the <b>first line</b> of your file (the column headers, no data) to <a href="mailto:planetblender@outlook.com?subject=Report%20Checker%20problem">planetblender@outlook.com</a> and we'll fix it.</p>
 <div class="cta">
 <p style="margin:0 0 12px">Found gaps and Amazon denied your claim? fbaleaks drafts a clear rebuttal in about a minute. $19.99 once, you keep 100%, 7-day money-back guarantee.</p>
 <a class="btn" href="https://fbaleaks.com/#rebuttal">Draft my rebuttal →</a>
@@ -98,6 +100,7 @@ out.sort((a,b)=>b.val-a.val||b.gap-a.gap);return {rows:out,units,val,adj,priced:
 const $=id=>document.getElementById(id);const money=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 const read=f=>new Promise((ok,no)=>{if(!f)return ok('');const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>no(r.error);r.readAsText(f)});
 $('go').onclick=async()=>{$('err').textContent='';const lf=$('led').files[0];if(!lf){$('err').textContent='Please choose your Inventory Ledger file first.';return}
+if(lf.size>30e6&&!confirm('This file is large ('+Math.round(lf.size/1e6)+' MB). On a phone it may be slow or crash the tab. Tip: use a shorter date range or a computer. Continue anyway?'))return;
 try{const res=analyze(await read(lf),await read($('rei').files[0]),parseFloat($('uv').value)||0);
 if(!res.adj){$('err').textContent="We couldn't find any Adjustments rows. Make sure it's the Inventory Ledger Detailed view.";return}
 $('units').textContent=res.units.toLocaleString('en-US');
