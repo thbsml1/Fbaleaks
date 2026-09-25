@@ -805,21 +805,36 @@ const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.c
 if(a){ track('InitiateCheckout', {value: 19.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
-let isUnlocked = localStorage.getItem('fbaleaksUnlocked') === 'true';
-if(new URLSearchParams(window.location.search).get('unlocked') === 'true'){
+const UNLOCK_HASH = '3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6';
+let isUnlocked = false;
+try{ localStorage.removeItem('fbaleaksUnlocked'); }catch(e){}
+async function sha256Hex(s){
+const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+(async function(){
+try{
+const urlKey = new URLSearchParams(window.location.search).get('key');
+const savedKey = localStorage.getItem('fbaleaksKey');
+let ok = false, fresh = false;
+if(urlKey && await sha256Hex(urlKey) === UNLOCK_HASH){ ok = true; fresh = true; localStorage.setItem('fbaleaksKey', urlKey); }
+else if(savedKey && await sha256Hex(savedKey) === UNLOCK_HASH){ ok = true; }
+if(!ok) return;
 isUnlocked = true;
-localStorage.setItem('fbaleaksUnlocked', 'true');
-document.addEventListener('DOMContentLoaded', function(){
+if(fresh){
 const b = document.createElement('div');
 b.className = 'paid-banner';
 b.innerHTML = 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
 document.body.insertBefore(b, document.body.firstChild);
-});
 if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
-fbq('track', 'Purchase', {value: 19.99, currency: 'USD'});
+track('Purchase', {value: 19.99, currency: 'USD'});
 localStorage.setItem('fbaleaksPurchaseTracked', 'true');
 }
+history.replaceState(null, '', window.location.pathname + window.location.hash);
 }
+if(lastResults.length) renderResults(lastResults);
+}catch(e){}
+})();
 /* ---------- FREE CALCULATOR ---------- */
 document.getElementById('calcBtn').addEventListener('click', function(){
 const units = parseFloat(document.getElementById('agedUnits').value);
@@ -1131,6 +1146,12 @@ ev6: "Independent product weight/dimension check"
 };
 return Object.keys(map).filter(id => document.getElementById(id).checked).map(id => map[id]);
 }
+function maskLetter(text){
+return text.split('\n').map((line, i) => {
+if(i < 4 || line.length <= 6) return line;
+return line.slice(0,2) + line.slice(2,-2).replace(/\S/g,'\u2022') + line.slice(-2);
+}).join('\n');
+}
 function generateLetter(){
 const claimType = document.getElementById('claimType').value;
 const denialReason = document.getElementById('denialReason').value;
@@ -1167,7 +1188,7 @@ const stamp = document.getElementById('stamp');
 const copyBtn = document.getElementById('copyBtn');
 const sampleOverlay = document.getElementById('sampleOverlay');
 const text = generateLetter();
-out.textContent = text;
+out.textContent = isUnlocked ? text : maskLetter(text);
 out.classList.remove('empty');
 copyBtn.disabled = false;
 if(isUnlocked){
