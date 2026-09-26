@@ -833,7 +833,7 @@ const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.c
 if(a){ track('InitiateCheckout', {value: 19.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
-const UNLOCK_HASH = '3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6';
+const UNLOCK_HASHES = ['3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6','ae2d539ef9da3f774ec8c053731a5d2086c7c9fd2495c958f5fa3ec634bf4630'];
 let isUnlocked = false;
 try{ localStorage.removeItem('fbaleaksUnlocked'); }catch(e){}
 async function sha256Hex(s){
@@ -845,8 +845,8 @@ try{
 const urlKey = new URLSearchParams(window.location.search).get('key');
 const savedKey = localStorage.getItem('fbaleaksKey');
 let ok = false, fresh = false;
-if(urlKey && await sha256Hex(urlKey) === UNLOCK_HASH){ ok = true; fresh = true; localStorage.setItem('fbaleaksKey', urlKey); }
-else if(savedKey && await sha256Hex(savedKey) === UNLOCK_HASH){ ok = true; }
+if(urlKey && UNLOCK_HASHES.includes(await sha256Hex(urlKey))){ ok = true; fresh = true; localStorage.setItem('fbaleaksKey', urlKey); }
+else if(savedKey && UNLOCK_HASHES.includes(await sha256Hex(savedKey))){ ok = true; }
 if(!ok) return;
 isUnlocked = true;
 if(fresh){
