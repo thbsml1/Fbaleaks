@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /Thank-you.html
 
 Sitemap: https://fbaleaks.com/sitemap.xml
