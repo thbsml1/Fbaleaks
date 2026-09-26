@@ -833,7 +833,9 @@ const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.c
 if(a){ track('InitiateCheckout', {value: 19.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
-const UNLOCK_HASHES = ['3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6','ae2d539ef9da3f774ec8c053731a5d2086c7c9fd2495c958f5fa3ec634bf4630'];
+const PAID_HASH = '3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6';
+const TRIAL_HASH = 'ae2d539ef9da3f774ec8c053731a5d2086c7c9fd2495c958f5fa3ec634bf4630';
+const TRIAL_DAYS = 30;
 let isUnlocked = false;
 try{ localStorage.removeItem('fbaleaksUnlocked'); }catch(e){}
 async function sha256Hex(s){
@@ -844,17 +846,39 @@ return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).
 try{
 const urlKey = new URLSearchParams(window.location.search).get('key');
 const savedKey = localStorage.getItem('fbaleaksKey');
-let ok = false, fresh = false;
-if(urlKey && UNLOCK_HASHES.includes(await sha256Hex(urlKey))){ ok = true; fresh = true; localStorage.setItem('fbaleaksKey', urlKey); }
-else if(savedKey && UNLOCK_HASHES.includes(await sha256Hex(savedKey))){ ok = true; }
+let ok = false, fresh = false, isTrial = false;
+async function check(k){
+if(!k) return null;
+const h = await sha256Hex(k);
+if(h === PAID_HASH) return 'paid';
+if(h === TRIAL_HASH) return 'trial';
+return null;
+}
+const urlType = await check(urlKey);
+if(urlType){
+ok = true; fresh = true; isTrial = (urlType === 'trial');
+localStorage.setItem('fbaleaksKey', urlKey);
+if(isTrial) localStorage.setItem('fbaleaksTrialStart', String(Date.now()));
+else localStorage.removeItem('fbaleaksTrialStart');
+} else {
+const savedType = await check(savedKey);
+if(savedType === 'paid'){ ok = true; }
+else if(savedType === 'trial'){
+const start = parseInt(localStorage.getItem('fbaleaksTrialStart') || '0', 10);
+const ageDays = (Date.now() - start) / 86400000;
+if(start && ageDays <= TRIAL_DAYS){ ok = true; isTrial = true; }
+}
+}
 if(!ok) return;
 isUnlocked = true;
 if(fresh){
 const b = document.createElement('div');
 b.className = 'paid-banner';
-b.innerHTML = 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
+b.innerHTML = isTrial
+? 'Free 30-day access activated. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.'
+: 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
 document.body.insertBefore(b, document.body.firstChild);
-if(localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
+if(!isTrial && localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
 track('Purchase', {value: 19.99, currency: 'USD'});
 localStorage.setItem('fbaleaksPurchaseTracked', 'true');
 }
