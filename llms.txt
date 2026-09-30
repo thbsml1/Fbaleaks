@@ -1,13 +1,13 @@
 # fbaleaks
 
-> fbaleaks helps Amazon FBA sellers find money leaking out of their account (lost and damaged inventory, missing inbound units, fee overcharges, customer returns, and storage fees) and take it back. No Amazon login required. One-time $19.99, no subscription, no percentage of recoveries, 7-day money-back guarantee.
+> fbaleaks helps Amazon FBA sellers find money leaking out of their account (lost and damaged inventory, missing inbound units, fee overcharges, customer returns, and storage fees) and take it back. No Amazon login required. One-time $9.99 for the first 50 Founding Members (then $19.99), no subscription, no percentage of recoveries, same-day refund if it does not help you find at least what you paid.
 
 ## Free tools
 - [Reimbursement Report Checker](https://fbaleaks.com/report-checker.html): upload the Amazon Inventory Ledger (detailed view) and Reimbursements report; the tool flags FNSKUs with units marked lost (reason M) or warehouse-damaged (reason E), net of found units (reason F), that exceed units reimbursed. Runs entirely in the browser; files never leave the device.
-- [Leak Estimator](https://fbaleaks.com/leak-estimator.html): enter monthly Amazon sales to see an estimated annual range of revenue that may be affected by FBA discrepancies (1-3% range cited by FBA auditing firms).
+- [Leak Calculator](https://fbaleaks.com/leak-estimator.html): enter monthly Amazon sales to see an estimated annual range of revenue that may be affected by FBA discrepancies (1-3% range cited by FBA auditing firms).
 - [10-Minute FBA Leak Checklist](https://fbaleaks.com/#checklist): a free monthly checklist covering reimbursements, inbound shipments, fee overcharges, returns, and aged inventory.
 
-## Paid toolkit ($19.99 one-time)
+## Paid toolkit ($9.99 one-time for the first 50, then $19.99)
 - Keep / Reprice / Kill triage for every SKU from an inventory CSV.
 - Claim rebuttal letter drafts for denied reimbursement claims (lost, damaged, missing inbound, returns, fee overcharges).
 
