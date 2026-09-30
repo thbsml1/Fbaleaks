@@ -63,7 +63,7 @@ table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{padding:8px 6px;
 <p class="dim" style="font-size:.78rem;margin-top:12px">These are <b>possible</b> gaps, not guaranteed claims. Amazon sometimes finds units later or reimburses under a different ID, and claim windows are limited. Check each SKU in Seller Central before filing, and check the current deadline there.</p>
 <p class="dim" style="font-size:.78rem">Report didn't read correctly? Email just the <b>first line</b> of your file (the column headers, no data) to <a href="mailto:planetblender@outlook.com?subject=Report%20Checker%20problem">planetblender@outlook.com</a> and we'll fix it.</p>
 <div class="cta">
-<p style="margin:0 0 12px">Found gaps and Amazon denied your claim? Fbaleaks drafts a clear rebuttal in about a minute. $19.99 once, you keep 100%, 7-day money-back guarantee.</p>
+<p style="margin:0 0 12px">Found gaps and Amazon denied your claim? Fbaleaks drafts a clear rebuttal in about a minute. $9.99 once for our first 50 Founding Members (then $19.99), you keep 100%. Instant access, and if it doesn't help you find at least what you paid, email us for a same-day refund.</p>
 <a class="btn" href="https://fbaleaks.com/#rebuttal">Draft my rebuttal →</a>
 </div>
 </div>
@@ -73,7 +73,7 @@ table{width:100%;border-collapse:collapse;font-size:.8rem}th,td{padding:8px 6px;
 <input type="email" name="email" placeholder="Your email" required aria-label="Your email" style="flex:1 1 200px;max-width:320px">
 <input type="hidden" name="_subject" value="New Fbaleaks signup (report checker)">
 <input type="hidden" name="_next" value="https://fbaleaks.com/checklist.html">
-<input type="hidden" name="_autoresponse" value="Thanks for checking your reports with Fbaleaks! Your free 10-Minute FBA Leak Checklist is here: https://fbaleaks.com/checklist.html&#10;&#10;Want a quick dollar estimate instead? Try the free Leak Estimator: https://fbaleaks.com/leak-estimator.html&#10;&#10;Got a claim denied? Fbaleaks drafts a clear rebuttal in about a minute. $19.99 once, you keep 100%, 7-day money-back guarantee: https://fbaleaks.com&#10;&#10;Reply with any FBA question. I read every one.&#10;Anthony, Fbaleaks">
+<input type="hidden" name="_autoresponse" value="Thanks for checking your reports with Fbaleaks! Your free 10-Minute FBA Leak Checklist is here: https://fbaleaks.com/checklist.html&#10;&#10;Want a quick dollar figure instead? Try the free Leak Calculator: https://fbaleaks.com/leak-estimator.html&#10;&#10;Got a claim denied? Fbaleaks drafts a clear rebuttal in about a minute. $9.99 once for our first 50 Founding Members, you keep 100%, and if it doesn't help you find at least what you paid, email me for a same-day refund: https://fbaleaks.com&#10;&#10;Reply with any FBA question. I read every one.&#10;Anthony, Fbaleaks">
 <input type="hidden" name="_captcha" value="false">
 <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
 <button class="btn" type="submit">Send me the checklist</button>
@@ -115,7 +115,7 @@ if(lf.size>30e6&&!confirm('This file is large ('+Math.round(lf.size/1e6)+' MB). 
 try{const res=analyze(await read(lf),await read($('rei').files[0]),parseFloat($('uv').value)||0);
 if(!res.adj){$('err').textContent="We couldn't find any Adjustments rows. Make sure it's the Inventory Ledger Detailed view.";return}
 $('units').textContent=res.units.toLocaleString('en-US');
-$('val').textContent=res.priced?('Estimated value: '+money(res.val)):'Add an average unit value above to see a dollar estimate.';
+$('val').textContent=res.priced?('From your numbers: '+money(res.val)):'Add an average unit value above to see a dollar figure from your numbers.';
 const tb=$('tb');tb.textContent='';
 for(const s of res.rows.slice(0,200)){const tr=document.createElement('tr');
 [s.sku||s.fnsku,(s.title||'').slice(0,40),s.lost,s.found,s.damaged,s.reimb,s.gap,res.priced?money(s.val):'—'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});tb.appendChild(tr)}
