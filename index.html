@@ -483,6 +483,14 @@ padding:20px;
 .laptop-base::after{content:'';position:absolute;left:50%;top:0;transform:translateX(-50%);width:60px;height:4px;background:rgba(0,0,0,0.25);border-radius:0 0 4px 4px;}
 .laptop-badge{position:absolute;top:-12px;right:6px;background:var(--ink);color:#fff;font-size:0.62rem;font-weight:700;letter-spacing:0.05em;padding:5px 9px;border-radius:999px;box-shadow:0 4px 12px rgba(27,33,48,0.25);z-index:2;}
 </style>
+<script type="module">
+import { analytics } from 'https://esm.sh/@heycatch/sdk@0.8.0';
+analytics.init({
+  projectKey: 'hck_pk_U40cMM2JOxl0HgDY1LTTQd_3pfBi6ZGA',
+  requestBatching: false,
+  install: { framework: 'web', agent: 'other' },
+});
+</script>
 </head>
 <body>
 <noscript><p class="noscript-msg">This tool runs in your browser and needs JavaScript turned on.</p></noscript>
