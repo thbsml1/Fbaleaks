@@ -494,16 +494,65 @@ analytics.init({
   install: { framework: 'web', agent: 'other' },
 });
 </script>
+<style>
+.topnav{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;justify-content:center;gap:2px;background:#fff;border-bottom:1px solid #E4E7EC;padding:2px 8px;}
+.topnav a{display:inline-block;padding:12px 14px;min-height:44px;font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:600;color:#1B2130;text-decoration:none;}
+.topnav a:hover{color:#2F6FED;}
+html{scroll-padding-top:56px;}
+.panel h1{font-family:'Roboto Slab',serif;font-size:1.05rem;letter-spacing:0.01em;color:var(--ink);font-weight:700;margin:0 0 6px;}
+.hero-panel h1{text-align:center;font-size:1.3rem;}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Is my product cost data safe?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Everything runs in your own browser. Your file is never sent anywhere. Not to Fbaleaks, not to Amazon, not to Meta, not even to Google."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do I have to connect my Amazon account?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. No Seller Central login, no API access, no passwords. You download your own report and drop it in."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Will Amazon reject these rebuttals?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "These are starting drafts, not guaranteed approvals — swap in your real evidence and current policy before submitting."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is it really a one-time fee?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes — $9.99 once for our first 50 Founding Members (then $19.99). No subscription, no recurring charge."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
+<nav class="topnav" aria-label="Main"><a href="/#free-tools">Free tools</a><a href="/#access">Pricing</a><a href="/#guides">Guides</a><a href="/#faq">FAQ</a></nav>
 <noscript><p class="noscript-msg">This tool runs in your browser and needs JavaScript turned on.</p></noscript>
 <header>
 <p class="kicker">Fbaleaks &middot; margin audit &amp; recovery toolkit</p>
-<h1 class="wordmark"><img src="/lock.png" alt="Fbaleaks margin audit tool" style="height:1.15em;width:auto;vertical-align:-0.2em;margin-right:0.25em">Fba<span>leaks</span></h1>
+<div class="wordmark"><img src="/lock.png" alt="Fbaleaks margin audit tool" style="height:1.15em;width:auto;vertical-align:-0.2em;margin-right:0.25em">Fba<span>leaks</span></div>
 <p class="tagline">The margin-audit and claim rebuttal stack for wholesale FBA sellers. Everything runs in your browser — your data never leaves your device.</p>
 <div class="live-pill">v1 &middot; Live</div>
 </header>
-<a href="/report-checker.html" style="display:block;max-width:760px;margin:0 auto 18px;padding:16px 18px;background:#EAF6F1;border:2px solid #22C08F;border-radius:14px;text-decoration:none;color:#1B2130;text-align:center;line-height:1.45"><strong style="display:block;font-size:1.05rem">Free Report Checker: see if Amazon owes you for lost units</strong><span style="display:block;font-size:.88rem;color:#5B6472;margin:4px 0 10px">No login. Your files never leave your device.</span><span style="display:inline-block;background:#2F6FED;color:#fff;font-weight:700;padding:10px 20px;border-radius:10px">Try it free &rarr;</span></a>
+<a id="free-tools" href="/report-checker.html" style="display:block;max-width:760px;margin:0 auto 18px;padding:16px 18px;background:#EAF6F1;border:2px solid #22C08F;border-radius:14px;text-decoration:none;color:#1B2130;text-align:center;line-height:1.45"><strong style="display:block;font-size:1.05rem">Free Report Checker: see if Amazon owes you for lost units</strong><span style="display:block;font-size:.88rem;color:#5B6472;margin:4px 0 10px">No login. Your files never leave your device.</span><span style="display:inline-block;background:#2F6FED;color:#fff;font-weight:700;padding:10px 20px;border-radius:10px">Try it free &rarr;</span></a>
 <main>
 <!-- FREE CALCULATOR -->
 <section class="panel calc-panel">
@@ -533,9 +582,11 @@ analytics.init({
 </section>
 <!-- HERO / OFFER -->
 <section class="panel hero-panel">
-<h2>Find out which SKUs are quietly losing you money</h2>
+<h1>Find out which SKUs are quietly losing you money - fix them in your browser</h1>
 <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">Upload your inventory, get a Keep/Reprice/Kill call on every SKU, and turn a denied Amazon claim into a real rebuttal — in minutes, right in your browser.</p>
 <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;font-size:.85rem;color:#5B6472;">Not a bolt-on feature inside a bigger, pricier suite — reimbursements and inventory triage are the whole point here.</p>
+<!-- USAGE COUNTER STUB: hidden on purpose. When you have a real number (for example SKUs audited so far) and its date, type it in and delete the word "hidden". Never publish an invented number. -->
+<p id="usage-counter" hidden style="text-align:center;font-size:.85rem;color:#5B6472;">[Real number] SKUs audited so far, as of [date]</p>
 <p class="sample-label">Example output</p>
 <div class="laptop-wrap">
 <div class="laptop-badge">Live example</div>
@@ -825,7 +876,7 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 <p class="desc" style="text-align:center;border-bottom:none;padding-bottom:0;">No subscription. One payment, yours to keep.</p>
 <div class="compare">
 <div class="compare-col">
-<h3>Free</h3>
+<h3>Free - try it on 3 SKUs</h3>
 <ul>
 <li>Aged-inventory estimate</li>
 <li>Keep / Reprice / Kill totals</li>
@@ -844,13 +895,14 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 </ul>
 </div>
 </div>
+<p class="price-note" style="text-align:center;margin:0 0 8px;">Standard: $19.99 one-time, after the first 50 Founding Members.</p>
 <div class="card" style="margin:22px 0">
 <h2 style="margin-top:0">Fbaleaks vs. reimbursement services</h2>
 <p style="margin:0 0 10px">Refunds Manager and Getida find your money too. Here's the difference.</p>
 <p style="margin:0 0 6px"><strong>Commission:</strong> they take 25% of everything they recover, for as long as you use them. Fbaleaks is $9.99 once. You keep 100%.</p>
 <p style="margin:0 0 6px"><strong>Account access:</strong> they need your Seller Central account connected so their team can work inside it. Fbaleaks runs on reports you download yourself. Nothing connects to your account, and nothing leaves your browser.</p>
 <p style="margin:0"><strong>Speed:</strong> they audit your account on their schedule, then report back. Fbaleaks shows you a result in 60 seconds, right now, free.</p>
-<p style="margin:10px 0 0"><strong>Full comparisons:</strong> <a href="/fbaleaks-vs-reimburseops.html">Fbaleaks vs. ReimburseOps</a> &middot; <a href="/fbaleaks-vs-refunds-manager.html">Fbaleaks vs. Refunds Manager</a></p>
+<p style="margin:10px 0 0"><strong>Full comparisons:</strong> <a href="/fbaleaks-vs-reimburseops.html">Fbaleaks vs. ReimburseOps</a> &middot; <a href="/fbaleaks-vs-refunds-manager.html">Fbaleaks vs. Refunds Manager</a> &middot; <a href="/fbaleaks-vs-getida.html">Fbaleaks vs. Getida</a></p>
 </div>
 <!-- REVIEW BADGE STUB: hidden on purpose. Once a Trustpilot or G2 profile has real reviews, paste the badge code inside this block and delete the word "hidden". -->
 <div id="review-badge" hidden style="margin:12px 0"></div>
@@ -1340,7 +1392,7 @@ A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in Janua
 Most reimbursement claims now expire after <a href="/fba-reimbursements.html">about 60 days</a>. Miss the window and the money is gone.
 </p>
 </section>
-<section style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#1B2130;">
+<section id="faq" style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#1B2130;">
 <h3 style="font-size:22px; margin-bottom:16px;">Questions people ask first</h3>
 <details style="margin-bottom:10px; background:#F7F8FA; border:1px solid #E4E7EC; padding:14px 18px; border-radius:8px;">
 <summary style="cursor:pointer; font-weight:600;">Is my product cost data safe?</summary>
