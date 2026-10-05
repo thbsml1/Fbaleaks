@@ -467,6 +467,9 @@ padding:20px;
 .guarantee{font-size:0.8rem;color:#16A07A;font-weight:600;margin:10px 0 0;}
 .paid-banner{background:var(--green);color:#fff;text-align:center;padding:12px 16px;font-size:0.95rem;}
 .compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;text-align:left;}
+.rec-badge{display:inline-block;background:var(--blue);color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:8px;}
+button,.btn-primary,.btn-access,.btn-ghost{min-height:44px;}
+input[type=number],input[type=text],input[type=email],input[type=date],select{min-height:44px;}
 @media(max-width:560px){.compare{grid-template-columns:1fr;}}
 .compare-col{background:var(--input-bg);border:1px solid var(--panel-border);border-radius:8px;padding:14px;}
 .compare-col.paid{border-color:var(--blue);background:#F2F6FF;}
@@ -496,7 +499,7 @@ analytics.init({
 <noscript><p class="noscript-msg">This tool runs in your browser and needs JavaScript turned on.</p></noscript>
 <header>
 <p class="kicker">Fbaleaks &middot; margin audit &amp; recovery toolkit</p>
-<h1 class="wordmark"><img src="/lock.png" alt="" style="height:1.15em;width:auto;vertical-align:-0.2em;margin-right:0.25em">Fba<span>leaks</span></h1>
+<h1 class="wordmark"><img src="/lock.png" alt="Fbaleaks margin audit tool" style="height:1.15em;width:auto;vertical-align:-0.2em;margin-right:0.25em">Fba<span>leaks</span></h1>
 <p class="tagline">The margin-audit and claim rebuttal stack for wholesale FBA sellers. Everything runs in your browser — your data never leaves your device.</p>
 <div class="live-pill">v1 &middot; Live</div>
 </header>
@@ -509,7 +512,7 @@ analytics.init({
 <div class="calc-row">
 <div class="field">
 <label for="agedUnits">Units currently aged 6+ months</label>
-<input type="number" id="agedUnits" min="0" placeholder="e.g. 60">
+<input type="number" id="agedUnits" inputmode="numeric" min="0" placeholder="e.g. 60">
 </div>
 <button class="btn-primary" id="calcBtn">See my estimate</button>
 </div>
@@ -540,9 +543,11 @@ analytics.init({
 <div class="laptop-cam"></div>
 <div class="laptop-screen">
 <div class="summary-row" style="margin:14px 14px 0;">
-<div class="summary-stat keep"><div class="num">1</div><div class="lbl">Keep</div></div>
-<div class="summary-stat kill"><div class="num">2</div><div class="lbl">Kill</div></div>
+<div class="summary-stat keep"><div class="num">6</div><div class="lbl">Keep</div></div>
+<div class="summary-stat reprice"><div class="num">3</div><div class="lbl">Reprice</div></div>
+<div class="summary-stat kill"><div class="num">3</div><div class="lbl">Kill</div></div>
 </div>
+<p class="loss-line" style="margin:12px 14px 0;">Your 3 Kill SKUs are losing you about <strong>$250</strong> on the units you sold. <em>(sample data)</em></p>
 <div class="results-wrap" style="margin:14px;">
 <table>
 <thead>
@@ -550,11 +555,21 @@ analytics.init({
 </thead>
 <tbody>
 <tr><td>SKU-4471</td><td>$8.99</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-1893</td><td>$6.40</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-5520</td><td>$5.15</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-3306</td><td>$4.72</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-7714</td><td>$3.88</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-2951</td><td>$3.10</td><td><span class="chip keep">Keep</span></td></tr>
+<tr><td>SKU-6082</td><td>$1.35</td><td><span class="chip reprice">Reprice</span></td></tr>
+<tr><td>SKU-4108</td><td>$0.92</td><td><span class="chip reprice">Reprice</span></td></tr>
+<tr><td>SKU-8830</td><td>$0.41</td><td><span class="chip reprice">Reprice</span></td></tr>
 <tr><td>SKU-2210</td><td>-$2.56</td><td><span class="chip kill">Kill</span></td></tr>
 <tr><td>SKU-3087</td><td>-$4.21</td><td><span class="chip kill">Kill</span></td></tr>
+<tr><td>SKU-9145</td><td>-$1.18</td><td><span class="chip kill">Kill</span></td></tr>
 </tbody>
 </table>
 </div>
+<span class="btn-ghost" aria-hidden="true" style="display:inline-block;margin:0 14px 14px;pointer-events:none;">Download results CSV</span>
 </div>
 </div>
 <div class="laptop-base"></div>
@@ -600,6 +615,16 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 </div>
 </div>
 
+<!-- TESTIMONIALS STUB: hidden on purpose. Fill in real, permissioned quotes (first name, photo, role, and a dollar outcome if they share one), then delete the word "hidden" from the section tag. Never publish made-up quotes. -->
+<section id="testimonials" hidden style="max-width:760px;margin:24px auto;padding:0 20px;color:#1B2130">
+<h2 style="margin-top:0">What sellers say</h2>
+<div style="display:flex;gap:16px;flex-wrap:wrap">
+<figure style="flex:1 1 220px;margin:0;background:#F7F8FA;border:1px solid #E4E7EC;border-radius:10px;padding:16px">
+<blockquote style="margin:0 0 10px;font-size:.9rem;line-height:1.55">[Real quote goes here]</blockquote>
+<figcaption style="font-size:.8rem;color:#5B6472">[First name], [role, e.g. wholesale seller, 400 SKUs]</figcaption>
+</figure>
+</div>
+</section>
 <!-- FREE GUIDES -->
 <style>
 .guides-panel{background:linear-gradient(135deg,#EAF6F1 0%,#F3F7FF 100%);border:2px solid var(--green);border-radius:14px;padding:26px 22px;margin-bottom:24px;box-shadow:0 4px 18px rgba(34,192,143,0.15);}
@@ -684,7 +709,7 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 </select>
 <div id="feePctWrap">
 <label for="feePct">Estimated fees (%)</label>
-<input type="number" id="feePct" value="30" min="0" max="90">
+<input type="number" id="feePct" inputmode="decimal" value="30" min="0" max="90">
 </div>
 <div id="feeColWrap" style="display:none;">
 <label for="colFees">Fees column</label>
@@ -693,11 +718,11 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 <div class="grid2">
 <div>
 <label for="minRoi">Minimum ROI (%)</label>
-<input type="number" id="minRoi" value="25" min="0">
+<input type="number" id="minRoi" inputmode="decimal" value="25" min="0">
 </div>
 <div>
 <label for="minProfit">Minimum profit ($)</label>
-<input type="number" id="minProfit" value="3" min="0" step="0.01">
+<input type="number" id="minProfit" inputmode="decimal" value="3" min="0" step="0.01">
 </div>
 </div>
 <button class="btn-primary" id="runAuditBtn">Run audit</button>
@@ -765,11 +790,11 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 <div class="grid2">
 <div>
 <label for="units2">Units affected</label>
-<input type="number" id="units2" min="0" placeholder="0">
+<input type="number" id="units2" inputmode="numeric" min="0" placeholder="0">
 </div>
 <div>
 <label for="amount2">Amount claimed ($)</label>
-<input type="number" id="amount2" min="0" step="0.01" placeholder="0.00">
+<input type="number" id="amount2" inputmode="decimal" min="0" step="0.01" placeholder="0.00">
 </div>
 </div>
 <label for="lossDate">Date of loss / discrepancy</label>
@@ -809,6 +834,7 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 </ul>
 </div>
 <div class="compare-col paid">
+<span class="rec-badge">Recommended - first 50 buyers</span>
 <h3>Founding Member: $9.99, once</h3>
 <ul>
 <li>Everything in Free</li>
@@ -824,7 +850,10 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 <p style="margin:0 0 6px"><strong>Commission:</strong> they take 25% of everything they recover, for as long as you use them. Fbaleaks is $9.99 once. You keep 100%.</p>
 <p style="margin:0 0 6px"><strong>Account access:</strong> they need your Seller Central account connected so their team can work inside it. Fbaleaks runs on reports you download yourself. Nothing connects to your account, and nothing leaves your browser.</p>
 <p style="margin:0"><strong>Speed:</strong> they audit your account on their schedule, then report back. Fbaleaks shows you a result in 60 seconds, right now, free.</p>
+<p style="margin:10px 0 0"><strong>Full comparisons:</strong> <a href="/fbaleaks-vs-reimburseops.html">Fbaleaks vs. ReimburseOps</a> &middot; <a href="/fbaleaks-vs-refunds-manager.html">Fbaleaks vs. Refunds Manager</a></p>
 </div>
+<!-- REVIEW BADGE STUB: hidden on purpose. Once a Trustpilot or G2 profile has real reviews, paste the badge code inside this block and delete the word "hidden". -->
+<div id="review-badge" hidden style="margin:12px 0"></div>
 <div class="price-tag">$9.99 <span class="unit">one-time</span> <span style="text-decoration:line-through;color:#5B6472;font-size:0.6em;margin-left:6px">$19.99</span></div>
 <p class="price-note" style="margin-bottom:4px;font-weight:700;color:#16A07A;">Founding Member price for the first 50 buyers only. Lifetime access. Then it goes back to $19.99.</p>
 <p class="price-note" style="margin-bottom:4px;">Getida and Seller Investigators charge 25% of everything they recover for you — forever. Fbaleaks is $9.99, once. You keep 100%.</p>
@@ -836,6 +865,16 @@ Shipment ID: FBA15XXXXXXX. 48 units shipped per carrier manifest (attached); 42 
 <p class="guarantee" style="color:#5B6472;font-weight:500">Recover $400 with a service that keeps 25%? They take $100. Fbaleaks: $9.99, once.</p>
 </section>
 </main>
+<section id="about" style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#1B2130;">
+<h3 style="font-size:22px; margin-bottom:12px;">Who runs Fbaleaks</h3>
+<p style="color:#5B6472;">Fbaleaks is built and run by Anthony Gasser in Indiana. Questions about FBA, your results, or a refund? <a href="mailto:planetblender@outlook.com">Email me</a>. I read every one.</p>
+<!-- FOUNDER STUB: hidden on purpose. Add a photo, a 3-sentence "why I built this" in your own words, and a LinkedIn or X link inside this block, then delete the word "hidden". -->
+<div id="founder-extra" hidden>
+<img src="/founder.jpg" alt="Anthony Gasser, founder of Fbaleaks" width="96" height="96" style="border-radius:50%">
+<p>[Why I built this: three sentences in your own words.]</p>
+<p><a href="[your LinkedIn or X link]">[LinkedIn or X]</a></p>
+</div>
+</section>
 <footer>
 Client-side only — nothing you upload here is sent anywhere. &copy; 2026 Fbaleaks.com<br>
 Questions? <a href="mailto:planetblender@outlook.com">planetblender@outlook.com</a><br>
@@ -1296,6 +1335,9 @@ setTimeout(() => btn.textContent = "Copy to clipboard", 1500);
 <h2 style="font-size:28px; font-weight:800; margin:0 0 16px;">Amazon's fees changed again in 2026 — did your margins?</h2>
 <p style="font-size:17px; color:#5B6472; max-width:600px; margin:0 auto 20px;">
 A 3.5% fuel surcharge landed in April. Aged-inventory fees got stricter in January. Fbaleaks runs the math on your own numbers, right in your browser. Your file is never uploaded to a server.
+</p>
+<p style="font-size:17px; color:#5B6472; max-width:600px; margin:0 auto 20px;">
+Most reimbursement claims now expire after <a href="/fba-reimbursements.html">about 60 days</a>. Miss the window and the money is gone.
 </p>
 </section>
 <section style="max-width:700px; margin:32px auto; padding:0 20px; font-family:inherit; color:#1B2130;">
