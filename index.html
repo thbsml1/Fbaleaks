@@ -936,7 +936,7 @@ try{ if(window.fbq){ if(custom){ fbq('trackCustom', name, data || {}); } else { 
 }
 document.addEventListener('click', function(e){
 const a = e.target && e.target.closest ? e.target.closest('a[href*="buy.stripe.com"]') : null;
-if(a){ track('InitiateCheckout', {value: 9.99, currency: 'USD'}); }
+if(a){ track('InitiateCheckout', {value: 29.99, currency: 'USD'}); }
 });
 const FREE_ROWS = 3;
 const PAID_HASH = '3c1fc83ea56eab397ba5035ceb9e47a69e102d7f1373014459ae0f17f540eea6';
@@ -986,7 +986,7 @@ b.innerHTML = isTrial
 : 'Payment received. Everything is unlocked. <a href="#triage" style="color:#fff;text-decoration:underline;">Upload your CSV again</a> to see every SKU.';
 document.body.insertBefore(b, document.body.firstChild);
 if(!isTrial && localStorage.getItem('fbaleaksPurchaseTracked') !== 'true'){
-track('Purchase', {value: 9.99, currency: 'USD'});
+track('Purchase', {value: 29.99, currency: 'USD'});
 localStorage.setItem('fbaleaksPurchaseTracked', 'true');
 }
 history.replaceState(null, '', window.location.pathname + window.location.hash);
@@ -1218,7 +1218,7 @@ return div.innerHTML;
 }
 document.getElementById('downloadBtn').addEventListener('click', function(){
 if(!isUnlocked){
-track('InitiateCheckout', {value: 9.99, currency: 'USD'});
+track('InitiateCheckout', {value: 29.99, currency: 'USD'});
 window.open('https://buy.stripe.com/8x228q5dJ5OJ37ed6Ce3e0a', '_blank', 'noopener');
 return;
 }
@@ -1364,7 +1364,7 @@ stamp.classList.add('show');
 document.getElementById('copyBtn').addEventListener('click', async () => {
 const btn = document.getElementById('copyBtn');
 if(!isUnlocked){
-track('InitiateCheckout', {value: 9.99, currency: 'USD'});
+track('InitiateCheckout', {value: 29.99, currency: 'USD'});
 window.open('https://buy.stripe.com/8x228q5dJ5OJ37ed6Ce3e0a', '_blank', 'noopener');
 return;
 }
@@ -1421,7 +1421,7 @@ This site uses the Meta Pixel to measure ads. Your CSV is processed in your brow
 "operatingSystem": "Web",
 "offers": {
 "@type": "Offer",
-"price": "9.99",
+"price": "29.99",
 "priceCurrency": "USD"
 },
 "description": "Amazon FBA margin audit and reimbursement claim tool. Upload inventory, get Keep/Reprice/Kill guidance."
